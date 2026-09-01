@@ -1,5 +1,3 @@
-"use client"
-
 import clsx from "clsx"
 import {
   ButtonHTMLAttributes,
@@ -11,7 +9,6 @@ import {
   TdHTMLAttributes,
   ThHTMLAttributes,
 } from "react"
-import { useI18n } from "@lib/i18n/provider"
 
 // TODO: Add Toaster component back when needed for notifications
 
@@ -80,7 +77,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const { t } = useI18n()
     return (
       <button
         ref={ref}
@@ -98,7 +94,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {...props}
       >
-        {isLoading ? t("common.loading") : children}
+        {isLoading ? "Loading..." : children}
       </button>
     )
   }

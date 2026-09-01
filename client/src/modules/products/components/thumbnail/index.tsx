@@ -3,7 +3,6 @@ import Image from "next/image"
 import React from "react"
 
 import PlaceholderImage from "@modules/common/icons/placeholder-image"
-import { useI18n } from "@lib/i18n/provider"
 
 type ThumbnailProps = {
   thumbnail?: string | null
@@ -50,11 +49,10 @@ const ImageOrPlaceholder = ({
   image,
   size,
 }: Pick<ThumbnailProps, "size"> & { image?: string }) => {
-  const { t } = useI18n()
   return image ? (
     <Image
       src={image}
-      alt={t("product.thumbnail")}
+      alt="Thumbnail"
       className="absolute inset-0 object-cover object-center"
       draggable={false}
       quality={50}
