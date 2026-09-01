@@ -116,10 +116,21 @@ Antes de montar el proyecto, la máquina debe tener:
 
 ### 1. Clonar el repositorio
 
+**Aclaración importante sobre el nombre de la carpeta**: `git clone` crea la carpeta con el **nombre del repositorio** (`ecommerce`) por defecto. Para que la carpeta local se llame `carvan` (y coincida con el resto de este documento y con `docker-compose.yml`), añade `carvan` como último argumento:
+
 ```bash
-git clone <url-del-repo> carvan
+git clone https://github.com/daniel-miranda2003/ecommerce.git carvan
 cd carvan
 ```
+
+> Si prefieres que la carpeta se llame `ecommerce`, omite el último argumento:
+>
+> ```bash
+> git clone https://github.com/daniel-miranda2003/ecommerce.git
+> cd ecommerce
+> ```
+>
+> En ese caso, sustituye mentalmente `carvan` por `ecommerce` en los comandos y rutas de este documento (las rutas `carvan/server/...` pasan a ser `ecommerce/server/...`). El `docker-compose.yml` es agnóstico del nombre de la carpeta, así que el proyecto funciona igual en ambos casos.
 
 ### 2. Crear los ficheros de entorno
 
