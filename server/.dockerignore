@@ -1,0 +1,7 @@
+node_modules
+.medusa
+dist
+.turbo
+.git
+*.log
+.env.local
