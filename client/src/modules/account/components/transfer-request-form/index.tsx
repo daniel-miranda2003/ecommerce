@@ -28,10 +28,10 @@ export default function TransferRequestForm() {
     <div className="flex flex-col gap-y-4 w-full">
       <div className="grid sm:grid-cols-2 items-center gap-x-8 gap-y-4 w-full">
         <div className="flex flex-col gap-y-1">
-          <Heading level="h3" className="!text-sm font-semibold text-neutral-950">
+          <Heading level="h3" className="!text-sm font-semibold text-ink">
             {t("account.orderTransfers")}
           </Heading>
-          <p className="text-small-regular text-neutral-500">
+          <p className="text-small-regular text-ink-muted">
             {t("account.cantFindOrder")}
             <br /> {t("account.connectOrder")}
           </p>
@@ -62,16 +62,16 @@ export default function TransferRequestForm() {
         </Text>
       )}
       {showSuccess && (
-        <div className="flex justify-between p-4 bg-neutral-50 shadow-borders-base w-full self-stretch items-center">
+        <div className="flex justify-between p-4 bg-paper-warm border border-line w-full self-stretch items-center">
           <div className="flex gap-x-2 items-center">
-            <CheckCircleMiniSolid className="w-4 h-4 text-emerald-500" />
+            <CheckCircleMiniSolid className="w-4 h-4 text-accent-green-fg" />
             <div className="flex flex-col gap-y-1">
-              <Text className="text-medim-pl text-neutral-950">
+              <Text className="text-medim-pl text-ink">
                 {t("account.transferRequested", {
                   id: state.order?.id ?? "",
                 })}
               </Text>
-              <Text className="text-base-regular text-neutral-600">
+              <Text className="text-base-regular text-ink-muted">
                 {t("account.transferEmailSent", {
                   email: state.order?.email ?? "",
                 })}
@@ -82,7 +82,7 @@ export default function TransferRequestForm() {
             className="h-fit"
             onClick={() => setShowSuccess(false)}
           >
-            <XCircleSolid className="w-4 h-4 text-neutral-500" />
+            <XCircleSolid className="w-4 h-4 text-ink-faint" />
           </IconButton>
         </div>
       )}

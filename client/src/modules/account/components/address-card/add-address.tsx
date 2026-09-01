@@ -61,7 +61,7 @@ const AddAddress = ({
         <Modal.Title>
           <Heading className="mb-2">{t("account.addAddress")}</Heading>
         </Modal.Title>
-        <form action={formAction}>
+        <form action={formAction} className="flex flex-col flex-1 overflow-hidden min-h-0">
           <Modal.Body>
             <div className="flex flex-col gap-y-2">
               <div className="grid grid-cols-2 gap-x-2">
@@ -99,7 +99,7 @@ const AddAddress = ({
                 autoComplete="address-line2"
                 data-testid="address-2-input"
               />
-              <div className="grid grid-cols-[144px_1fr] gap-x-2">
+              <div className="grid grid-cols-2 gap-3">
                 <Input
                   label={t("checkout.field.postalCode")}
                   name="postal_code"
@@ -121,13 +121,7 @@ const AddAddress = ({
                 autoComplete="address-level1"
                 data-testid="state-input"
               />
-              <CountrySelect
-                region={region}
-                name="country_code"
-                required
-                autoComplete="country"
-                data-testid="country-select"
-              />
+              <input type="hidden" name="country_code" value="br" />
               <Input
                 label={t("account.phone")}
                 name="phone"

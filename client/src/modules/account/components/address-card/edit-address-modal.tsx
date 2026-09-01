@@ -125,7 +125,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
         <Modal.Title>
           <Heading className="mb-2">{t("account.editAddress")}</Heading>
         </Modal.Title>
-        <form action={formAction}>
+        <form action={formAction} className="flex flex-col flex-1 overflow-hidden min-h-0">
           <input type="hidden" name="addressId" value={address.id} />
           <Modal.Body>
             <div className="grid grid-cols-1 gap-y-2">
@@ -169,7 +169,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 defaultValue={address.address_2 || undefined}
                 data-testid="address-2-input"
               />
-              <div className="grid grid-cols-[144px_1fr] gap-x-2">
+              <div className="grid grid-cols-2 gap-3">
                 <Input
                   label={t("checkout.field.postalCode")}
                   name="postal_code"
@@ -194,14 +194,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 defaultValue={address.province || undefined}
                 data-testid="state-input"
               />
-              <CountrySelect
-                name="country_code"
-                region={region}
-                required
-                autoComplete="country"
-                defaultValue={address.country_code || undefined}
-                data-testid="country-select"
-              />
+              <input type="hidden" name="country_code" value={address.country_code || "br"} />
               <Input
                 label={t("account.phone")}
                 name="phone"

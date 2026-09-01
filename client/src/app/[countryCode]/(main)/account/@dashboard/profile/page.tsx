@@ -31,11 +31,11 @@ export default async function Profile() {
 
   return (
     <div className="w-full" data-testid="profile-page-wrapper">
-      <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">{t("metadata.profile")}</h1>
-        <p className="text-base-regular">{t("metadata.profileBody")}</p>
+      <div className="mb-8 flex flex-col gap-y-2">
+        <h1 className="font-display text-3xl small:text-4xl text-ink font-normal tracking-[-0.02em]">{t("metadata.profile")}</h1>
+        <p className="text-xs small:text-sm text-ink-muted leading-relaxed max-w-xl">{t("metadata.profileBody")}</p>
       </div>
-      <div className="flex flex-col gap-y-8 w-full">
+      <div className="flex flex-col gap-y-6 w-full">
         <ProfileName customer={customer} />
         <Divider />
         <ProfileEmail customer={customer} />
@@ -51,5 +51,5 @@ export default async function Profile() {
 }
 
 const Divider = () => {
-  return <div className="w-full h-px bg-gray-200" />
+  return <div className="w-full h-px bg-line" />
 }

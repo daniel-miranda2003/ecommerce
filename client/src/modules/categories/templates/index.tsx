@@ -41,7 +41,7 @@ export default function CategoryTemplate({
 
   return (
     <div
-      className="flex flex-col small:flex-row small:items-start py-6 content-container"
+      className="flex flex-col small:flex-row small:items-start py-10 content-container"
       data-testid="category-container"
     >
       <RefinementList
@@ -50,12 +50,12 @@ export default function CategoryTemplate({
         hideOptionsPicker
       />
       <div className="w-full">
-        <div className="flex flex-row mb-8 text-2xl-semi gap-4">
+        <div className="flex flex-row mb-8 gap-4 items-baseline">
           {parents &&
             parents.map((parent) => (
-              <span key={parent.id} className="text-ui-fg-subtle">
+              <span key={parent.id} className="eyebrow text-ink-faint">
                 <LocalizedClientLink
-                  className="mr-4 hover:text-black"
+                  className="mr-4 hover:text-ink transition-colors duration-200"
                   href={`/categories/${parent.handle}`}
                   data-testid="sort-by-link"
                 >
@@ -64,11 +64,11 @@ export default function CategoryTemplate({
                 /
               </span>
             ))}
-          <h1 data-testid="category-page-title">{category.name}</h1>
+          <h1 className="font-display text-[2.4rem] leading-[0.96] tracking-[-0.02em] text-ink" data-testid="category-page-title">{category.name}</h1>
         </div>
         {category.description && (
-          <div className="mb-8 text-base-regular">
-            <p>{category.description}</p>
+          <div className="mb-8 max-w-xl">
+            <p className="text-base leading-[1.8] text-ink-muted">{category.description}</p>
           </div>
         )}
         {category.category_children && (

@@ -1,10 +1,9 @@
-import { ArrowUpRightMini } from "@medusajs/icons"
-import { Text } from "@modules/common/components/ui"
 import { Metadata } from "next"
 import Link from "next/link"
 import { getLocale } from "@lib/data/locale-actions"
 import { getT } from "@lib/i18n/server"
 import { isSupportedLocale, translate } from "@lib/i18n/translate"
+import { ArrowRightMini } from "@medusajs/icons"
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = isSupportedLocale(await getLocale())
@@ -17,19 +16,81 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function NotFound() {
   const t = await getT()
+
   return (
-    <div className="flex flex-col gap-4 items-center justify-center min-h-[calc(100vh-64px)]">
-      <h1 className="text-2xl-semi text-ui-fg-base">{t("notFound.title")}</h1>
-      <p className="text-small-regular text-ui-fg-base">
-        {t("notFound.message")}
-      </p>
-      <Link className="flex gap-x-1 items-center group" href="/">
-        <Text className="text-ui-fg-interactive">{t("notFound.goHome")}</Text>
-        <ArrowUpRightMini
-          className="group-hover:rotate-45 ease-in-out duration-150"
-          color="var(--fg-interactive)"
-        />
-      </Link>
+    <div className="relative min-h-[82vh] w-full flex flex-col items-center justify-center overflow-hidden bg-paper px-6 py-16">
+      {/* Ambient warm light drift blob */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[36rem] w-[36rem] rounded-full opacity-[0.035] blur-[150px] bg-[#D9B98C] animate-drift"
+      />
+
+      {/* Giant 404 Watermark */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[26vw] small:text-[18rem] font-normal leading-none text-ink/[0.035] select-none"
+      >
+        404
+      </span>
+
+      <div className="relative z-10 max-w-xl flex flex-col items-center text-center animate-reveal">
+        {/* Eyebrow */}
+        <p className="eyebrow mb-4">ERROR 404 — CARVAN</p>
+
+        {/* Heading */}
+        <h1 className="font-display text-4xl small:text-6xl text-ink font-normal tracking-[-0.02em] leading-[1.05] mb-4">
+          {t("notFound.title")}
+        </h1>
+
+        {/* Subtitle / Message */}
+        <p className="text-sm small:text-base text-ink-muted leading-[1.7] max-w-md mb-8">
+          {t("notFound.message")}
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col small:flex-row items-center gap-4 w-full justify-center mb-12">
+          <Link
+            href="/store"
+            className="btn-press inline-flex h-12 w-full small:w-auto items-center justify-center rounded-[4px] bg-ink px-8 text-sm font-medium tracking-[0.04em] text-white transition-colors duration-200 hover:bg-[#333333]"
+          >
+            {t("notFound.exploreStore")}
+          </Link>
+          <Link
+            href="/"
+            className="btn-press inline-flex h-12 w-full small:w-auto items-center justify-center rounded-[4px] border border-line bg-card px-7 text-sm font-medium tracking-[0.04em] text-ink transition-colors duration-200 hover:border-ink"
+          >
+            {t("notFound.goHome")}
+          </Link>
+        </div>
+
+        {/* Quick Links Bento Strip */}
+        <div className="w-full max-w-lg border-t border-line pt-8">
+          <p className="eyebrow mb-4 text-center">ENLACES RÁPIDOS</p>
+          <div className="grid grid-cols-3 gap-3 w-full text-xs text-ink-muted">
+            <Link
+              href="/store"
+              className="p-3 border border-line bg-card rounded-[4px] hover:border-ink hover:text-ink transition-all flex items-center justify-between"
+            >
+              <span>{t("nav.store")}</span>
+              <ArrowRightMini className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/account"
+              className="p-3 border border-line bg-card rounded-[4px] hover:border-ink hover:text-ink transition-all flex items-center justify-between"
+            >
+              <span>{t("nav.account")}</span>
+              <ArrowRightMini className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/cart"
+              className="p-3 border border-line bg-card rounded-[4px] hover:border-ink hover:text-ink transition-all flex items-center justify-between"
+            >
+              <span>{t("nav.cart")}</span>
+              <ArrowRightMini className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

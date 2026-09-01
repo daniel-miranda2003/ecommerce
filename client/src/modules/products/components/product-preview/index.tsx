@@ -1,4 +1,4 @@
-import { Text } from "@modules/common/components/ui"
+import { Text, clx } from "@modules/common/components/ui"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -14,15 +14,6 @@ export default async function ProductPreview({
   isFeatured?: boolean
   region: HttpTypes.StoreRegion
 }) {
-  // const pricedProduct = await listProducts({
-  //   regionId: region.id,
-  //   queryParams: { id: [product.id!] },
-  // }).then(({ response }) => response.products[0])
-
-  // if (!pricedProduct) {
-  //   return null
-  // }
-
   const { cheapestPrice } = getProductPrice({
     product,
   })
@@ -36,11 +27,14 @@ export default async function ProductPreview({
           size="full"
           isFeatured={isFeatured}
         />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
+        <div className="mt-4 flex items-baseline justify-between gap-3">
+          <Text
+            className="text-[13px] leading-[1.4] tracking-[0.01em] text-ink-soft overflow-hidden text-ellipsis whitespace-nowrap max-w-[70%]"
+            data-testid="product-title"
+          >
             {product.title}
           </Text>
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-2 shrink-0">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>
         </div>

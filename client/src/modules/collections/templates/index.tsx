@@ -24,11 +24,11 @@ export default function CollectionTemplate({
   const sort = sortBy || "created_at"
 
   return (
-    <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
+    <div className="flex flex-col small:flex-row small:items-start py-10 content-container">
       <RefinementList sortBy={sort} hideOptionsPicker />
       <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1>{collection.title}</h1>
+        <div className="mb-10">
+          <h1 className="font-display text-[2.4rem] small:text-[3rem] leading-[0.96] tracking-[-0.02em] text-ink">{collection.title}</h1>
         </div>
         <Suspense
           fallback={

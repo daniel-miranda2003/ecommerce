@@ -42,10 +42,10 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
       <Component
         ref={ref}
         className={clsx(
-          "font-semibold",
-          Component === "h1" && "text-3xl",
-          Component === "h2" && "text-2xl",
-          Component === "h3" && "text-xl",
+          "font-display tracking-[-0.02em]",
+          Component === "h1" && "text-4xl",
+          Component === "h2" && "text-3xl",
+          Component === "h3" && "text-2xl",
           className
         )}
         {...props}
@@ -82,19 +82,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={clsx(
-          "inline-flex gap-2 items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-          variant === "primary" && "bg-black text-white hover:bg-gray-800",
+          "inline-flex gap-2 items-center justify-center rounded-[4px] font-medium transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
+          variant === "primary" &&
+            "bg-ink text-white hover:bg-[#333333] shadow-none",
           variant === "secondary" &&
-            "bg-white text-black border border-gray-200 hover:bg-gray-50",
-          variant === "transparent" && "bg-transparent hover:bg-gray-100",
-          size === "small" && "h-8 px-3 text-sm",
-          size === "medium" && "h-10 px-4",
-          size === "large" && "h-12 px-6 text-lg",
+            "bg-transparent text-ink border border-line hover:bg-paper-warm",
+          variant === "transparent" &&
+            "bg-transparent text-ink-muted hover:bg-paper-warm hover:text-ink",
+          size === "small" && "h-8 px-3 text-xs tracking-[0.02em]",
+          size === "medium" && "h-10 px-5 text-sm tracking-[0.02em]",
+          size === "large" && "h-12 px-6 text-base tracking-[0.02em]",
           className
         )}
         {...props}
       >
-        {isLoading ? "Loading..." : children}
+        {isLoading ? "…" : children}
       </button>
     )
   }
@@ -109,7 +111,10 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     return (
       <div
         ref={ref}
-        className={clsx("bg-white rounded-lg p-4", className)}
+        className={clsx(
+          "bg-white border border-line rounded-lg p-4 shadow-none",
+          className
+        )}
         {...props}
       >
         {children}
@@ -130,13 +135,13 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium",
-          color === "green" && "bg-green-100 text-green-700",
-          color === "red" && "bg-red-100 text-red-700",
-          color === "blue" && "bg-blue-100 text-blue-700",
-          color === "orange" && "bg-orange-100 text-orange-700",
-          color === "grey" && "bg-gray-100 text-gray-700",
-          color === "purple" && "bg-purple-100 text-purple-700",
+          "inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.08em]",
+          color === "green" && "bg-accent-green-bg text-accent-green-fg",
+          color === "red" && "bg-accent-red-bg text-accent-red-fg",
+          color === "blue" && "bg-accent-blue-bg text-accent-blue-fg",
+          color === "orange" && "bg-accent-yellow-bg text-accent-yellow-fg",
+          color === "grey" && "bg-[#EFEEEA] text-ink-muted",
+          color === "purple" && "bg-accent-blue-bg text-accent-blue-fg",
           className
         )}
         {...props}
@@ -157,7 +162,7 @@ export const IconBadge = forwardRef<HTMLSpanElement, IconBadgeProps>(
       <span
         ref={ref}
         className={clsx(
-          "inline-flex items-center justify-center rounded-full bg-gray-100 p-1",
+          "inline-flex items-center justify-center rounded-full bg-paper-warm border border-line p-1",
           className
         )}
         {...props}
@@ -178,7 +183,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          "inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-100 transition-colors focus-visible:outline-none focus-visible:ring-2",
+          "inline-flex items-center justify-center rounded-[4px] p-2 hover:bg-paper-warm transition-colors focus-visible:outline-none focus-visible:ring-2 active:scale-[0.98]",
           className
         )}
         {...props}
@@ -221,7 +226,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={clsx(
-            "flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-10 w-full rounded-[4px] border border-line bg-white px-3 py-2 text-sm text-ink-soft placeholder:text-ink-faint focus:outline-none focus:border-ink disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           {...props}

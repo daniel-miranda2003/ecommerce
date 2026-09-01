@@ -19,18 +19,19 @@ const Register = ({ setCurrentView }: Props) => {
 
   return (
     <div
-      className="max-w-sm flex flex-col items-center"
+      className="w-full flex flex-col items-center"
       data-testid="register-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">
+      <h1 className="font-display text-2xl small:text-3xl text-ink font-normal tracking-[-0.02em] mb-1.5 text-center">
         {t("account.becomeMember")}
       </h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-4">
+      <p className="text-center text-xs small:text-sm text-ink-muted mb-5 leading-relaxed">
         {t("account.createMemberProfile")}
       </p>
+
       {message?.state === "verification_required" && (
         <div
-          className="w-full mb-4 text-center text-base-regular text-ui-fg-base bg-ui-bg-subtle border border-ui-border-base rounded-rounded p-4"
+          className="w-full mb-6 text-center text-xs text-ink-soft bg-[#EDF3EC] border border-[#346538]/20 rounded-[4px] p-4"
           data-testid="register-verification-message"
         >
           {t("account.verificationLinkSentCheck", { email: "{{email}}" })
@@ -40,8 +41,9 @@ const Register = ({ setCurrentView }: Props) => {
             )}
         </div>
       )}
-      <form className="w-full flex flex-col" action={formAction}>
-        <div className="flex flex-col w-full gap-y-2">
+
+      <form className="w-full flex flex-col gap-y-4" action={formAction}>
+        <div className="grid grid-cols-2 gap-3 w-full">
           <Input
             label={t("checkout.field.firstName")}
             name="first_name"
@@ -56,65 +58,62 @@ const Register = ({ setCurrentView }: Props) => {
             autoComplete="family-name"
             data-testid="last-name-input"
           />
-          <Input
-            label={t("account.email")}
-            name="email"
-            required
-            type="email"
-            autoComplete="email"
-            data-testid="email-input"
-          />
-          <Input
-            label={t("account.phone")}
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            data-testid="phone-input"
-          />
-          <Input
-            label={t("account.password")}
-            name="password"
-            required
-            type="password"
-            autoComplete="new-password"
-            data-testid="password-input"
-          />
         </div>
+
+        <Input
+          label={t("account.email")}
+          name="email"
+          required
+          type="email"
+          autoComplete="email"
+          data-testid="email-input"
+        />
+        <Input
+          label={t("account.phone")}
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          data-testid="phone-input"
+        />
+        <Input
+          label={t("account.password")}
+          name="password"
+          required
+          type="password"
+          autoComplete="new-password"
+          data-testid="password-input"
+        />
+
         <ErrorMessage
           error={message?.state === "error" ? message.error : null}
           data-testid="register-error"
         />
-        <span className="text-center text-ui-fg-base text-small-regular mt-6">
+
+        <p className="text-center text-[11px] text-ink-muted leading-normal mt-1">
           {t("account.byCreating")}{" "}
           <LocalizedClientLink
             href="/content/privacy-policy"
-            className="underline"
+            className="text-ink underline underline-offset-2 hover:text-ink-soft transition-colors"
           >
             {t("account.privacyPolicy")}
           </LocalizedClientLink>{" "}
           {t("account.and")}{" "}
           <LocalizedClientLink
             href="/content/terms-of-use"
-            className="underline"
+            className="text-ink underline underline-offset-2 hover:text-ink-soft transition-colors"
           >
             {t("account.termsOfUse")}
           </LocalizedClientLink>
           .
-        </span>
-        <SubmitButton className="w-full mt-6" data-testid="register-button">
+        </p>
+
+        <SubmitButton
+          className="w-full h-11 bg-ink text-white font-medium text-sm tracking-[0.04em] rounded-[4px] hover:bg-[#333333] transition-colors duration-200 btn-press mt-2"
+          data-testid="register-button"
+        >
           {t("account.join")}
         </SubmitButton>
       </form>
-      <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        {t("account.alreadyMember")}{" "}
-        <button
-          onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
-          className="underline"
-        >
-          {t("account.signIn")}
-        </button>
-        .
-      </span>
     </div>
   )
 }

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-
 import Register from "@modules/account/components/register"
 import Login from "@modules/account/components/login"
 
@@ -11,15 +10,57 @@ export enum LOGIN_VIEW {
 }
 
 const LoginTemplate = () => {
-  const [currentView, setCurrentView] = useState("sign-in")
+  const [currentView, setCurrentView] = useState<LOGIN_VIEW>(LOGIN_VIEW.SIGN_IN)
 
   return (
-    <div className="w-full flex justify-start px-8 py-8">
-      {currentView === "sign-in" ? (
-        <Login setCurrentView={setCurrentView} />
-      ) : (
-        <Register setCurrentView={setCurrentView} />
-      )}
+    <div className="content-container relative z-10 flex flex-col items-center py-0">
+      {/* Background ambient warmth */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[32rem] w-[32rem] rounded-full opacity-[0.03] blur-[140px] bg-[#D9B98C]"
+      />
+
+      <div className="w-full max-w-md flex flex-col items-center animate-reveal">
+        {/* Eyebrow badge */}
+        <p className="eyebrow mb-2">MI CUENTA — CARVAN</p>
+
+        {/* Segmented View Switcher Header */}
+        <div className="w-full flex border-b border-line mb-5">
+          <button
+            type="button"
+            onClick={() => setCurrentView(LOGIN_VIEW.SIGN_IN)}
+            className={`flex-1 py-3 text-xs tracking-[0.08em] uppercase transition-colors duration-200 border-b-2 -mb-px text-center ${
+              currentView === LOGIN_VIEW.SIGN_IN
+                ? "border-ink font-semibold text-ink"
+                : "border-transparent font-normal text-ink-muted hover:text-ink"
+            }`}
+            data-testid="sign-in-tab"
+          >
+            Iniciar sesión
+          </button>
+          <button
+            type="button"
+            onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
+            className={`flex-1 py-3 text-xs tracking-[0.08em] uppercase transition-colors duration-200 border-b-2 -mb-px text-center ${
+              currentView === LOGIN_VIEW.REGISTER
+                ? "border-ink font-semibold text-ink"
+                : "border-transparent font-normal text-ink-muted hover:text-ink"
+            }`}
+            data-testid="register-tab"
+          >
+            Crear cuenta
+          </button>
+        </div>
+
+        {/* Form Card */}
+        <div className="w-full bg-card border border-line p-6 small:p-8 rounded-[6px] shadow-card-hover transition-all duration-300">
+          {currentView === LOGIN_VIEW.SIGN_IN ? (
+            <Login setCurrentView={setCurrentView} />
+          ) : (
+            <Register setCurrentView={setCurrentView} />
+          )}
+        </div>
+      </div>
     </div>
   )
 }

@@ -19,10 +19,10 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
+      <header className="relative h-[68px] mx-auto border-b border-line bg-paper">
+        <nav className="content-container text-small-regular flex items-center justify-between w-full h-full">
           <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
+            <div className="h-full flex items-center">
               <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
             </div>
           </div>
@@ -30,17 +30,24 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              className="masthead text-[22px] leading-none hover:text-ink-soft transition-colors duration-200"
               data-testid="nav-store-link"
             >
               {t("brand.name")}
             </LocalizedClientLink>
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
+          <div className="flex items-center gap-x-5 h-full flex-1 basis-0 justify-end">
+            <div className="hidden small:flex items-center gap-x-5 h-full">
               <LocalizedClientLink
-                className="hover:text-ui-fg-base"
+                className="eyebrow text-ink-muted hover:text-ink transition-colors duration-200"
+                href="/store"
+                data-testid="nav-store-link-all"
+              >
+                {t("nav.store")}
+              </LocalizedClientLink>
+              <LocalizedClientLink
+                className="eyebrow text-ink-muted hover:text-ink transition-colors duration-200"
                 href="/account"
                 data-testid="nav-account-link"
               >
@@ -50,7 +57,7 @@ export default async function Nav() {
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
+                  className="eyebrow text-ink-muted hover:text-ink transition-colors duration-200"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >

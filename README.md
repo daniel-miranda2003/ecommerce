@@ -281,9 +281,9 @@ docker exec -it carvan-postgres sh -lc "PGPASSWORD=medusa_password psql -U medus
 docker compose run --rm server pnpm exec medusa db:migrate
 ```
 
-### Hot reload
+### Hot reload (Tiempo real)
 
-El client corre `next dev` (Turbopack) sobre `/app` montado por bind mount: **guardar cualquier fichero recarga en caliente** automáticamente. El server usa `medusa develop` con el mismo comportamiento.
+El client corre `next dev -p 8000` (motor Webpack optimizado) sobre `/app` montado por bind mount con `WATCHPACK_POLLING: "true"` habilitado en `docker-compose.yml`. **Guardar cualquier fichero recarga en caliente en tiempo real de forma automática**, incluso en Docker Desktop sobre Windows. El server usa `medusa develop` con el mismo comportamiento.
 
 ---
 
@@ -291,15 +291,21 @@ El client corre `next dev` (Turbopack) sobre `/app` montado por bind mount: **gu
 
 | Recurso | URL | Notas |
 |---|---|---|
-| Storefront | http://localhost:8000 | redirige a `/dk` (región por defecto) |
-| Admin Medusa | http://localhost:9000/app | panel de gestión |
+| Storefront | http://localhost:8000 | Tienda pública Next.js (ej. `http://localhost:8000/br`) |
+| Admin Medusa | http://localhost:9000/app | Panel de gestión Medusa v2 |
 | API health | http://localhost:9000/health | devuelve `200` |
 | Postgres | `localhost:5432` | user `medusa` / pass `medusa_password` / db `medusa` |
 | Redis | `localhost:6379` | sin contraseña (dev) |
 
-**Admin**: en el primer uso, define el usuario administrador (email + contraseña) desde la pantalla de login de `/app`. Esa cuenta se guarda en la base.
+**Admin Medusa**: Para crear el primer usuario administrador de Medusa v2, ejecuta el siguiente comando en la terminal:
 
-**Storefront**: el acceso a la API del store usa la *publishable key* (`NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY`) y las Server Actions corren en el servidor Next.
+```bash
+docker compose exec server npx medusa user -e admin@carvan.com -p admin123
+```
+
+Luego inicia sesión en `http://localhost:9000/app` con `admin@carvan.com` y `admin123`.
+
+**Storefront**: El acceso a la API del store usa la *publishable key* (`NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY`) y las Server Actions corren en el servidor Next.
 
 ---
 
@@ -394,6 +400,22 @@ docker compose up -d --force-recreate client
 
 ```bash
 docker exec -it carvan-postgres sh -lc "PGPASSWORD=medusa_password psql -U medusa -h localhost -d medusa -c 'SELECT 1;'"
+```
+
+### 6. Los cambios en el código no se ven reflejados en tiempo real (Windows HMR)
+
+En Docker sobre Windows, los eventos de cambios de archivos del host no se emiten al contenedor Linux. Para solucionar esto, el servicio `client` en `docker-compose.yml` tiene configurada la variable `WATCHPACK_POLLING: "true"`. Si realizas cambios grandes o en paquetes de `node_modules`, fuerza la recreación con:
+
+```bash
+docker compose up -d --force-recreate client
+```
+
+### 7. ¿Cómo crear el usuario Administrador en Medusa v2?
+
+En Medusa v2 la pantalla de login (`http://localhost:9000/app`) no permite registrar un usuario inicial desde la interfaz web. Debes generar la cuenta desde la terminal ejecutando:
+
+```bash
+docker compose exec server npx medusa user -e admin@carvan.com -p admin123
 ```
 
 ---

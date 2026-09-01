@@ -15,20 +15,20 @@ export default async function TransferPage({
     <div className="flex flex-col gap-y-4 items-start w-2/5 mx-auto mt-10 mb-20">
       <TransferImage />
       <div className="flex flex-col gap-y-6">
-        <Heading level="h1" className="text-xl text-zinc-900">
+        <Heading level="h1" className="text-xl text-ink font-display">
           {t("transfer.requestTitle", { id })}
         </Heading>
-        <Text className="text-zinc-600">
+        <Text className="text-ink-muted">
           {t("transfer.receivedBody", { id })}
         </Text>
-        <div className="w-full h-px bg-zinc-200" />
-        <Text className="text-zinc-600">
+        <div className="w-full h-px bg-line" />
+        <Text className="text-ink-muted">
           {t("transfer.acceptBody")}
         </Text>
-        <Text className="text-zinc-600">
+        <Text className="text-ink-muted">
           {t("transfer.declineBody")}
         </Text>
-        <div className="w-full h-px bg-zinc-200" />
+        <div className="w-full h-px bg-line" />
         <TransferActions id={id} token={token} />
       </div>
     </div>

@@ -19,17 +19,17 @@ export default async function TransferPage({
       <div className="flex flex-col gap-y-6">
         {success && (
           <>
-            <Heading level="h1" className="text-xl text-zinc-900">
+            <Heading level="h1" className="text-xl text-ink font-display">
               {t("transfer.acceptedTitle")}
             </Heading>
-            <Text className="text-zinc-600">
+            <Text className="text-ink-muted">
               {t("transfer.acceptedBody", { id })}
             </Text>
           </>
         )}
         {!success && (
           <>
-            <Text className="text-zinc-600">
+            <Text className="text-ink-muted">
               {t("transfer.acceptError")}
             </Text>
             {error && (

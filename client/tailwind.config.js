@@ -33,6 +33,36 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        paper: {
+          DEFAULT: "#F7F6F3",
+          warm: "#FBFBFA",
+          card: "#FFFFFF",
+        },
+        ink: {
+          DEFAULT: "#111111",
+          soft: "#2F3437",
+          muted: "#787774",
+          faint: "#A8A29E",
+        },
+        line: "#EAEAEA",
+        accent: {
+          red: {
+            bg: "#FDEBEC",
+            fg: "#9F2F2D",
+          },
+          blue: {
+            bg: "#E1F3FE",
+            fg: "#1F6C9F",
+          },
+          green: {
+            bg: "#EDF3EC",
+            fg: "#346538",
+          },
+          yellow: {
+            bg: "#FBF3DB",
+            fg: "#956400",
+          },
+        },
       },
       borderRadius: {
         none: "0px",
@@ -59,14 +89,27 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          "Inter",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
+          "var(--font-sans)",
+          "Archivo",
           "Helvetica Neue",
-          "Ubuntu",
+          "Helvetica",
+          "Arial",
           "sans-serif",
+        ],
+        display: [
+          "var(--font-display)",
+          "Cormorant Garamond",
+          "Bodoni MT",
+          "Georgia",
+          "Times New Roman",
+          "serif",
+        ],
+        mono: [
+          "SF Mono",
+          "Cascadia Mono",
+          "Consolas",
+          "Menlo",
+          "monospace",
         ],
       },
       keyframes: {
@@ -139,6 +182,22 @@ module.exports = {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        reveal: {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        drift: {
+          "0%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "50%": { transform: "translate3d(4%, 3%, 0) scale(1.08)" },
+          "100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+        },
+      },
+      letterSpacing: {
+        widest: "0.14em",
+      },
+      boxShadow: {
+        "card-rest": "0 0 0 rgba(0, 0, 0, 0)",
+        "card-hover": "0 2px 8px rgba(0, 0, 0, 0.04)",
       },
       animation: {
         ring: "ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
@@ -154,6 +213,8 @@ module.exports = {
         enter: "enter 200ms ease-out",
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
+        reveal: "reveal 600ms cubic-bezier(0.16, 1, 0.3, 1) both",
+        drift: "drift 24s ease-in-out infinite",
       },
     },
   },

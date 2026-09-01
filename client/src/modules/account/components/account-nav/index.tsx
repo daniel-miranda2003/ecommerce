@@ -111,12 +111,10 @@ const AccountNav = ({
       </div>
       <div className="hidden small:block" data-testid="account-nav">
         <div>
-          <div className="pb-4">
-            <h3 className="text-base-semi">{t("nav.account")}</h3>
-          </div>
-          <div className="text-base-regular">
-            <ul className="flex mb-0 justify-start items-start flex-col gap-y-4">
-              <li>
+          <p className="eyebrow mb-6">MI CUENTA</p>
+          <div className="text-sm">
+            <ul className="flex mb-0 justify-start items-start flex-col gap-y-3">
+              <li className="w-full">
                 <AccountNavLink
                   href="/account"
                   route={route!}
@@ -125,7 +123,7 @@ const AccountNav = ({
                   {t("account.overview")}
                 </AccountNavLink>
               </li>
-              <li>
+              <li className="w-full">
                 <AccountNavLink
                   href="/account/profile"
                   route={route!}
@@ -134,7 +132,7 @@ const AccountNav = ({
                   {t("account.profile")}
                 </AccountNavLink>
               </li>
-              <li>
+              <li className="w-full">
                 <AccountNavLink
                   href="/account/addresses"
                   route={route!}
@@ -143,7 +141,7 @@ const AccountNav = ({
                   {t("account.addresses")}
                 </AccountNavLink>
               </li>
-              <li>
+              <li className="w-full">
                 <AccountNavLink
                   href="/account/orders"
                   route={route!}
@@ -152,13 +150,15 @@ const AccountNav = ({
                   {t("account.orders")}
                 </AccountNavLink>
               </li>
-              <li className="text-grey-700">
+              <li className="w-full pt-4 mt-2 border-t border-line">
                 <button
                   type="button"
                   onClick={handleLogout}
+                  className="text-xs uppercase tracking-wider text-ink-muted hover:text-rose-600 font-medium flex items-center gap-x-2 transition-colors w-full"
                   data-testid="logout-button"
                 >
-                  {t("account.logOut")}
+                  <ArrowRightOnRectangle className="w-4 h-4" />
+                  <span>{t("account.logOut")}</span>
                 </button>
               </li>
             </ul>
@@ -188,8 +188,9 @@ const AccountNavLink = ({
   return (
     <LocalizedClientLink
       href={href}
-      className={clx("text-ui-fg-subtle hover:text-ui-fg-base", {
-        "text-ui-fg-base font-semibold": active,
+      className={clx("block transition-all duration-200 py-1", {
+        "text-ink font-semibold border-l-2 border-ink pl-3 -ml-3": active,
+        "text-ink-muted hover:text-ink pl-0": !active,
       })}
       data-testid={dataTestId}
     >
