@@ -57,6 +57,12 @@ services:
       - ./server:/app
       - /app/node_modules
       - /app/.medusa
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:9000/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
     networks:
       - carvan-net
 
@@ -67,7 +73,8 @@ services:
     container_name: carvan-client
     restart: unless-stopped
     depends_on:
-      - server
+      server:
+        condition: service_healthy
     env_file:
       - ./client/.env.local
     ports:
