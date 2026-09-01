@@ -1,3 +1,4 @@
+import { useI18n } from "@lib/i18n/provider"
 import { HttpTypes } from "@medusajs/types"
 import { Container } from "@modules/common/components/ui"
 import Checkbox from "@modules/common/components/checkbox"
@@ -18,6 +19,7 @@ const ShippingAddress = ({
   checked: boolean
   onChange: () => void
 }) => {
+  const { t } = useI18n()
   const [formData, setFormData] = useState<Record<string, string>>({
     "shipping_address.first_name": cart?.shipping_address?.first_name || "",
     "shipping_address.last_name": cart?.shipping_address?.last_name || "",
@@ -99,7 +101,7 @@ const ShippingAddress = ({
       {customer && (addressesInRegion?.length || 0) > 0 && (
         <Container className="mb-6 flex flex-col gap-y-4 p-5">
           <p className="text-small-regular">
-            {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
+            {t("checkout.savedAddresses", { first_name: customer.first_name ?? "" })}
           </p>
           <AddressSelect
             addresses={customer.addresses}
@@ -114,7 +116,7 @@ const ShippingAddress = ({
       )}
       <div className="grid grid-cols-2 gap-4">
         <Input
-          label="First name"
+          label={t("checkout.field.firstName")}
           name="shipping_address.first_name"
           autoComplete="given-name"
           value={formData["shipping_address.first_name"]}
@@ -123,7 +125,7 @@ const ShippingAddress = ({
           data-testid="shipping-first-name-input"
         />
         <Input
-          label="Last name"
+          label={t("checkout.field.lastName")}
           name="shipping_address.last_name"
           autoComplete="family-name"
           value={formData["shipping_address.last_name"]}
@@ -132,7 +134,7 @@ const ShippingAddress = ({
           data-testid="shipping-last-name-input"
         />
         <Input
-          label="Address"
+          label={t("checkout.field.address")}
           name="shipping_address.address_1"
           autoComplete="address-line1"
           value={formData["shipping_address.address_1"]}
@@ -141,7 +143,7 @@ const ShippingAddress = ({
           data-testid="shipping-address-input"
         />
         <Input
-          label="Company"
+          label={t("checkout.field.company")}
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
           onChange={handleChange}
@@ -149,7 +151,7 @@ const ShippingAddress = ({
           data-testid="shipping-company-input"
         />
         <Input
-          label="Postal code"
+          label={t("checkout.field.postalCode")}
           name="shipping_address.postal_code"
           autoComplete="postal-code"
           value={formData["shipping_address.postal_code"]}
@@ -158,7 +160,7 @@ const ShippingAddress = ({
           data-testid="shipping-postal-code-input"
         />
         <Input
-          label="City"
+          label={t("checkout.field.city")}
           name="shipping_address.city"
           autoComplete="address-level2"
           value={formData["shipping_address.city"]}
@@ -176,7 +178,7 @@ const ShippingAddress = ({
           data-testid="shipping-country-select"
         />
         <Input
-          label="State / Province"
+          label={t("checkout.field.province")}
           name="shipping_address.province"
           autoComplete="address-level1"
           value={formData["shipping_address.province"]}
@@ -186,7 +188,7 @@ const ShippingAddress = ({
       </div>
       <div className="my-8">
         <Checkbox
-          label="Billing address same as shipping address"
+          label={t("checkout.billingSameAsShipping")}
           name="same_as_billing"
           checked={checked}
           onChange={onChange}
@@ -195,10 +197,10 @@ const ShippingAddress = ({
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <Input
-          label="Email"
+          label={t("checkout.field.email")}
           name="email"
           type="email"
-          title="Enter a valid email address."
+          title={t("checkout.validEmail")}
           autoComplete="email"
           value={formData.email}
           onChange={handleChange}
@@ -206,7 +208,7 @@ const ShippingAddress = ({
           data-testid="shipping-email-input"
         />
         <Input
-          label="Phone"
+          label={t("checkout.field.phone")}
           name="shipping_address.phone"
           autoComplete="tel"
           value={formData["shipping_address.phone"]}

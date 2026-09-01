@@ -1,5 +1,6 @@
 import { Listbox, Transition } from "@headlessui/react"
 import { ChevronUpDown } from "@medusajs/icons"
+import { useI18n } from "@lib/i18n/provider"
 import { clx } from "@modules/common/components/ui"
 import { Fragment, useMemo } from "react"
 
@@ -21,6 +22,7 @@ const AddressSelect = ({
   addressInput,
   onSelect,
 }: AddressSelectProps) => {
+  const { t } = useI18n()
   const handleSelect = (id: string) => {
     const savedAddress = addresses.find((a) => a.id === id)
     if (savedAddress) {
@@ -44,7 +46,7 @@ const AddressSelect = ({
               <span className="block truncate">
                 {selectedAddress
                   ? selectedAddress.address_1
-                  : "Choose an address"}
+                  : t("checkout.addressSelect")}
               </span>
               <ChevronUpDown
                 className={clx("transition-rotate duration-200", {

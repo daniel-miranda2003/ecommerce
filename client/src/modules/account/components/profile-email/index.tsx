@@ -6,6 +6,7 @@ import Input from "@modules/common/components/input"
 
 import AccountInfo from "../account-info"
 import { HttpTypes } from "@medusajs/types"
+import { useI18n } from "@lib/i18n/provider"
 // import { updateCustomer } from "@lib/data/customer"
 
 type MyInformationProps = {
@@ -14,6 +15,7 @@ type MyInformationProps = {
 
 const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   const [successState, setSuccessState] = React.useState(false)
+  const { t } = useI18n()
 
   // TODO: It seems we don't support updating emails now?
   const updateCustomerEmail = (
@@ -44,7 +46,7 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
   return (
     <form action={formAction} className="w-full">
       <AccountInfo
-        label="Email"
+        label={t("account.email")}
         currentInfo={`${customer.email}`}
         isSuccess={successState}
         isError={!!state.error}
@@ -54,7 +56,7 @@ const ProfileEmail: React.FC<MyInformationProps> = ({ customer }) => {
       >
         <div className="grid grid-cols-1 gap-y-2">
           <Input
-            label="Email"
+            label={t("account.email")}
             name="email"
             type="email"
             autoComplete="email"

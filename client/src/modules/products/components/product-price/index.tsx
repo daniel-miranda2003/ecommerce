@@ -2,6 +2,7 @@ import { clx } from "@modules/common/components/ui"
 
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
+import { useI18n } from "@lib/i18n/provider"
 
 export default function ProductPrice({
   product,
@@ -10,6 +11,7 @@ export default function ProductPrice({
   product: HttpTypes.StoreProduct
   variant?: HttpTypes.StoreProductVariant
 }) {
+  const { t } = useI18n()
   const { cheapestPrice, variantPrice } = getProductPrice({
     product,
     variantId: variant?.id,
@@ -28,7 +30,7 @@ export default function ProductPrice({
           "text-ui-fg-interactive": selectedPrice.price_type === "sale",
         })}
       >
-        {!variant && "From "}
+        {!variant && t("product.from")}
         <span
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}
@@ -39,7 +41,7 @@ export default function ProductPrice({
       {selectedPrice.price_type === "sale" && (
         <>
           <p>
-            <span className="text-ui-fg-subtle">Original: </span>
+            <span className="text-ui-fg-subtle">{t("product.original")} </span>
             <span
               className="line-through"
               data-testid="original-product-price"
@@ -49,7 +51,9 @@ export default function ProductPrice({
             </span>
           </p>
           <span className="text-ui-fg-interactive">
-            -{selectedPrice.percentage_diff}%
+            {t("product.offPercentage", {
+              percentage: selectedPrice.percentage_diff,
+            })}
           </span>
         </>
       )}

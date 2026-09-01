@@ -16,6 +16,7 @@ import {
   clx,
 } from "@modules/common/components/ui"
 import { HttpTypes } from "@medusajs/types"
+import { useI18n } from "@lib/i18n/provider"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 
@@ -26,6 +27,7 @@ const Payment = ({
   cart: HttpTypes.StoreCart
   availablePaymentMethods: { id: string }[]
 }) => {
+  const { t } = useI18n()
   const activeSession = cart.payment_collection?.payment_sessions?.find(
     (paymentSession) => paymentSession.status === "pending"
   )
@@ -123,7 +125,7 @@ const Payment = ({
             }
           )}
         >
-          Payment
+          {t("checkout.payment.title")}
           {!isOpen && paymentReady && <CheckCircleSolid />}
         </Heading>
         {!isOpen && paymentReady && (
@@ -133,7 +135,7 @@ const Payment = ({
               className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="edit-payment-button"
             >
-              Edit
+              {t("checkout.edit")}
             </button>
           </Text>
         )}
@@ -172,13 +174,13 @@ const Payment = ({
           {paidByGiftcard && (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                {t("checkout.payment.method")}
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
                 data-testid="payment-method-summary"
               >
-                Gift card
+                {t("checkout.payment.giftCard")}
               </Text>
             </div>
           )}
@@ -199,10 +201,10 @@ const Payment = ({
             }
             data-testid="submit-payment-button"
           >
-            {!activeSession && isStripeLike(selectedPaymentMethod)
-              ? "Enter payment details"
-              : "Continue to review"}
-          </Button>
+{!activeSession && isStripeLike(selectedPaymentMethod)
+            ? t("checkout.payment.enterDetails")
+            : t("checkout.payment.continueToReview")}
+        </Button>
         </div>
 
         <div className={isOpen ? "hidden" : "block"}>
@@ -210,7 +212,7 @@ const Payment = ({
             <div className="flex items-start gap-x-1 w-full">
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Payment method
+                  {t("checkout.payment.method")}
                 </Text>
                 <Text
                   className="txt-medium text-ui-fg-subtle"
@@ -222,7 +224,7 @@ const Payment = ({
               </div>
               <div className="flex flex-col w-1/3">
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Payment details
+                  {t("checkout.payment.details")}
                 </Text>
                 <div
                   className="flex gap-2 txt-medium text-ui-fg-subtle items-center"
@@ -233,20 +235,20 @@ const Payment = ({
                       <CreditCard />
                     )}
                   </Container>
-                  <Text>Another step will appear</Text>
+                  <Text>{t("checkout.payment.anotherStep")}</Text>
                 </div>
               </div>
             </div>
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment method
+                {t("checkout.payment.method")}
               </Text>
               <Text
                 className="txt-medium text-ui-fg-subtle"
                 data-testid="payment-method-summary"
               >
-                Gift card
+                {t("checkout.payment.giftCard")}
               </Text>
             </div>
           ) : null}

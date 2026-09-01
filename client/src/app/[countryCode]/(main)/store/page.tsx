@@ -3,10 +3,16 @@ import { Metadata } from "next"
 import { parseOptionValueIds } from "@lib/util/product-option-filters"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "@modules/store/templates"
+import { getLocale } from "@lib/data/locale-actions"
+import { isSupportedLocale, translate } from "@lib/i18n/translate"
 
-export const metadata: Metadata = {
-  title: "Store",
-  description: "Explore all of our products.",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = isSupportedLocale(await getLocale())
+
+  return {
+    title: translate(locale, "metadata.store"),
+    description: translate(locale, "metadata.storeDescription"),
+  }
 }
 
 type StorePageSearchParams = Record<string, string | string[] | undefined> & {

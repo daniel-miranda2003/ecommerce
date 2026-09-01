@@ -1,5 +1,6 @@
 "use client"
 
+import { useI18n } from "@lib/i18n/provider"
 import { IconBadge, clx } from "@modules/common/components/ui"
 import {
   SelectHTMLAttributes,
@@ -19,7 +20,8 @@ type NativeSelectProps = {
 } & Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">
 
 const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
-  ({ placeholder = "Select...", className, children, ...props }, ref) => {
+  ({ placeholder, className, children, ...props }, ref) => {
+    const { t } = useI18n()
     const innerRef = useRef<HTMLSelectElement>(null)
     const [isPlaceholder, setIsPlaceholder] = useState(false)
 
@@ -55,7 +57,7 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             className="appearance-none bg-transparent border-none px-4 transition-colors duration-150 focus:border-gray-700 outline-none w-16 h-16 items-center justify-center"
           >
             <option disabled value="">
-              {placeholder}
+              {placeholder ?? t("cart.select")}
             </option>
             {children}
           </select>

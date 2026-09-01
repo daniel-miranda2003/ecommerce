@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import ReactCountryFlag from "react-country-flag"
 
 import { StateType } from "@lib/hooks/use-toggle-state"
+import { useI18n } from "@lib/i18n/provider"
 import { updateLocale } from "@lib/data/locale-actions"
 import { Locale } from "@lib/data/locales"
 
@@ -73,6 +74,7 @@ const LanguageSelect = ({
   locales,
   currentLocale,
 }: LanguageSelectProps) => {
+  const { t } = useI18n()
   const [current, setCurrent] = useState<LanguageOption | undefined>(undefined)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
@@ -128,7 +130,7 @@ const LanguageSelect = ({
       >
         <ListboxButton className="py-1 w-full">
           <div className="txt-compact-small flex items-start gap-x-2">
-            <span>Language:</span>
+            <span>{t("nav.language")}</span>
             {current && (
               <span className="txt-compact-small flex items-center gap-x-2">
                 {current.countryCode && (
@@ -142,7 +144,11 @@ const LanguageSelect = ({
                     countryCode={current.countryCode}
                   />
                 )}
-                {isPending ? "..." : current.localizedName}
+                {isPending
+                  ? "..."
+                  : current.localizedName === "Default"
+                  ? t("language.default")
+                  : current.localizedName}
               </span>
             )}
           </div>

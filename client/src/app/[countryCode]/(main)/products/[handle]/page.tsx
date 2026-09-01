@@ -4,6 +4,8 @@ import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
+import { getLocale } from "@lib/data/locale-actions"
+import { isSupportedLocale, translate } from "@lib/i18n/translate"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -72,6 +74,7 @@ function getImagesForVariant(
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const { handle } = params
+  const locale = isSupportedLocale(await getLocale())
   const region = await getRegion(params.countryCode)
 
   if (!region) {
@@ -87,11 +90,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
+  const title = translate(locale, "metadata.title", { title: product.title })
+
   return {
-    title: `${product.title} | Medusa Store`,
+    title,
     description: `${product.title}`,
     openGraph: {
-      title: `${product.title} | Medusa Store`,
+      title,
       description: `${product.title}`,
       images: product.thumbnail ? [product.thumbnail] : [],
     },

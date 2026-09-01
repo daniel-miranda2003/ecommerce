@@ -6,6 +6,7 @@ import { HttpTypes } from "@medusajs/types"
 import { Button } from "@modules/common/components/ui"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
+import { useI18n } from "@lib/i18n/provider"
 import { isEqual } from "lodash"
 import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -32,6 +33,7 @@ export default function ProductActions({
   product,
   disabled,
 }: ProductActionsProps) {
+  const { t } = useI18n()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -177,10 +179,10 @@ export default function ProductActions({
           data-testid="add-product-button"
         >
           {!selectedVariant
-            ? "Select variant"
+            ? t("product.selectVariant")
             : !inStock || !isValidVariant
-            ? "Out of stock"
-            : "Add to cart"}
+            ? t("product.outOfStock")
+            : t("product.addToCart")}
         </Button>
         <MobileActions
           product={product}

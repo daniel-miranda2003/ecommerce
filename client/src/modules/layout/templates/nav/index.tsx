@@ -2,6 +2,7 @@ import { Suspense } from "react"
 
 import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
+import { getT } from "@lib/i18n/server"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -9,6 +10,7 @@ import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
 export default async function Nav() {
+  const t = await getT()
   const [regions, locales, currentLocale] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
     listLocales(),
@@ -31,7 +33,7 @@ export default async function Nav() {
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
               data-testid="nav-store-link"
             >
-              Medusa Store
+              {t("brand.name")}
             </LocalizedClientLink>
           </div>
 
@@ -42,7 +44,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                Account
+                {t("nav.account")}
               </LocalizedClientLink>
             </div>
             <Suspense
@@ -52,7 +54,7 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  {t("nav.cart", { totalItems: 0 })}
                 </LocalizedClientLink>
               }
             >

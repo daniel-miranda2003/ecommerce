@@ -7,6 +7,8 @@ import { HttpTypes, StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { parseOptionValueIds } from "@lib/util/product-option-filters"
+import { getLocale } from "@lib/data/locale-actions"
+import { isSupportedLocale, translate } from "@lib/i18n/translate"
 
 type Props = {
   params: Promise<{ category: string[]; countryCode: string }>
@@ -49,14 +51,19 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   try {
+    const locale = isSupportedLocale(await getLocale())
     const productCategory = await getCategoryByHandle(params.category)
 
-    const title = productCategory.name + " | Medusa Store"
+    const title = translate(locale, "metadata.title", {
+      title: productCategory.name,
+    })
 
-    const description = productCategory.description ?? `${title} category.`
+    const description =
+      productCategory.description ??
+      translate(locale, "metadata.category", { title: productCategory.name })
 
     return {
-      title: `${title} | Medusa Store`,
+      title,
       description,
       alternates: {
         canonical: `${params.category.join("/")}`,

@@ -4,10 +4,16 @@ import Overview from "@modules/account/components/overview"
 import { notFound } from "next/navigation"
 import { retrieveCustomer } from "@lib/data/customer"
 import { listOrders } from "@lib/data/orders"
+import { getLocale } from "@lib/data/locale-actions"
+import { isSupportedLocale, translate } from "@lib/i18n/translate"
 
-export const metadata: Metadata = {
-  title: "Account",
-  description: "Overview of your account activity.",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = isSupportedLocale(await getLocale())
+
+  return {
+    title: translate(locale, "metadata.account"),
+    description: translate(locale, "metadata.accountDescription"),
+  }
 }
 
 export default async function OverviewTemplate() {

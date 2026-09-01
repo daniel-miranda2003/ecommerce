@@ -7,6 +7,8 @@ import { StoreCollection, StoreRegion } from "@medusajs/types"
 import CollectionTemplate from "@modules/collections/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { parseOptionValueIds } from "@lib/util/product-option-filters"
+import { getLocale } from "@lib/data/locale-actions"
+import { isSupportedLocale, translate } from "@lib/i18n/translate"
 
 type Props = {
   params: Promise<{ handle: string; countryCode: string }>
@@ -56,6 +58,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
+  const locale = isSupportedLocale(await getLocale())
   const collection = await getCollectionByHandle(params.handle)
 
   if (!collection) {
@@ -63,8 +66,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 
   const metadata = {
-    title: `${collection.title} | Medusa Store`,
-    description: `${collection.title} collection`,
+    title: translate(locale, "metadata.title", { title: collection.title }),
+    description: translate(locale, "metadata.collection", {
+      title: collection.title,
+    }),
   } as Metadata
 
   return metadata

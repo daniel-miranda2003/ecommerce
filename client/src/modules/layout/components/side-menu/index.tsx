@@ -2,6 +2,7 @@
 
 import { Popover, PopoverPanel, Transition } from "@headlessui/react"
 import useToggleState from "@lib/hooks/use-toggle-state"
+import { useI18n } from "@lib/i18n/provider"
 import { ArrowRightMini, XMark } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -13,10 +14,10 @@ import { Locale } from "@lib/data/locales"
 
 
 const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Account: "/account",
-  Cart: "/cart",
+  nav_home: "/",
+  nav_store: "/store",
+  nav_account: "/account",
+  nav_cart: "/cart",
 }
 
 type SideMenuProps = {
@@ -28,6 +29,7 @@ type SideMenuProps = {
 const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
   const countryToggleState = useToggleState()
   const languageToggleState = useToggleState()
+  const { t } = useI18n()
 
   return (
     <div className="h-full">
@@ -40,7 +42,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                   data-testid="nav-menu-button"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
-                  Menu
+                  {t("nav.menu")}
                 </Popover.Button>
               </div>
 
@@ -73,16 +75,16 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                       </button>
                     </div>
                     <ul className="flex flex-col gap-6 items-start justify-start">
-                      {Object.entries(SideMenuItems).map(([name, href]) => {
+                      {Object.entries(SideMenuItems).map(([key, href]) => {
                         return (
-                          <li key={name}>
+                          <li key={key}>
                             <LocalizedClientLink
                               href={href}
                               className="text-3xl leading-10 hover:text-ui-fg-disabled"
                               onClick={close}
-                              data-testid={`${name.toLowerCase()}-link`}
+                              data-testid={`${key}-link`}
                             >
-                              {name}
+                              {t(key)}
                             </LocalizedClientLink>
                           </li>
                         )
@@ -127,8 +129,7 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                         />
                       </div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Medusa Store. All rights
-                        reserved.
+                        {t("nav.footer.copyright", { year: new Date().getFullYear() })}
                       </Text>
                     </div>
                   </div>

@@ -4,11 +4,16 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
+import { getLocale } from "@lib/data/locale-actions"
+import { isSupportedLocale, translate } from "@lib/i18n/translate"
 
-export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
-  description:
-    "A performant frontend ecommerce starter template with Next.js 15 and Medusa.",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = isSupportedLocale(await getLocale())
+
+  return {
+    title: translate(locale, "metadata.home"),
+    description: translate(locale, "metadata.homeDescription"),
+  }
 }
 
 export default async function Home(props: {

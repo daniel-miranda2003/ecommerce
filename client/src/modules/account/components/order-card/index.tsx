@@ -5,12 +5,15 @@ import Thumbnail from "@modules/products/components/thumbnail"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
+import { useI18n } from "@lib/i18n/provider"
 
 type OrderCardProps = {
   order: HttpTypes.StoreOrder
 }
 
 const OrderCard = ({ order }: OrderCardProps) => {
+  const { t } = useI18n()
+
   const numberOfLines = useMemo(() => {
     return (
       order.items?.reduce((acc, item) => {
@@ -38,9 +41,11 @@ const OrderCard = ({ order }: OrderCardProps) => {
             currency_code: order.currency_code,
           })}
         </span>
-        <span className="pl-2">{`${numberOfLines} ${
-          numberOfLines > 1 ? "items" : "item"
-        }`}</span>
+        <span className="pl-2">
+          {numberOfLines > 1
+            ? t("account.itemsCount", { count: numberOfLines })
+            : t("account.itemCount", { count: numberOfLines })}
+        </span>
       </div>
       <div className="grid grid-cols-2 small:grid-cols-4 gap-4 my-4">
         {order.items?.slice(0, 3).map((i) => {
@@ -69,14 +74,16 @@ const OrderCard = ({ order }: OrderCardProps) => {
             <span className="text-small-regular text-ui-fg-base">
               + {numberOfLines - 4}
             </span>
-            <span className="text-small-regular text-ui-fg-base">more</span>
+            <span className="text-small-regular text-ui-fg-base">
+              {t("account.more")}
+            </span>
           </div>
         )}
       </div>
       <div className="flex justify-end">
         <LocalizedClientLink href={`/account/orders/details/${order.id}`}>
           <Button data-testid="order-details-link" variant="secondary">
-            See details
+            {t("account.seeDetails")}
           </Button>
         </LocalizedClientLink>
       </div>

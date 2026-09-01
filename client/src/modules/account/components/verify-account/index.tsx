@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation"
 import { Button } from "@modules/common/components/ui"
 import { confirmEmailVerification } from "@lib/data/customer"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { useI18n } from "@lib/i18n/provider"
 
 type VerificationState = "verifying" | "success" | "error"
 
@@ -12,6 +13,7 @@ const VerifyAccount = () => {
   const searchParams = useSearchParams()
   const token = searchParams.get("token")
   const [state, setState] = useState<VerificationState>("verifying")
+  const { t } = useI18n()
   // Guard against the effect running twice in React Strict Mode, which would
   // consume the single-use token before the customer sees the result.
   const confirmed = useRef(false)
@@ -37,21 +39,23 @@ const VerifyAccount = () => {
       className="max-w-sm w-full flex flex-col items-center text-center gap-y-4"
       data-testid="verify-account-page"
     >
-      <h1 className="text-large-semi uppercase">Email verification</h1>
+      <h1 className="text-large-semi uppercase">
+        {t("account.emailVerification")}
+      </h1>
 
       {state === "verifying" && (
         <p className="text-base-regular text-ui-fg-base">
-          Verifying your email...
+          {t("account.verifyingEmail")}
         </p>
       )}
 
       {state === "success" && (
         <>
           <p className="text-base-regular text-ui-fg-base">
-            Your email is verified. You can now sign in to your account.
+            {t("account.emailVerified")}
           </p>
           <LocalizedClientLink href="/account">
-            <Button variant="primary">Go to sign in</Button>
+            <Button variant="primary">{t("account.goToSignIn")}</Button>
           </LocalizedClientLink>
         </>
       )}
@@ -59,11 +63,10 @@ const VerifyAccount = () => {
       {state === "error" && (
         <>
           <p className="text-base-regular text-ui-fg-base">
-            This verification link is invalid or has expired. Sign in to receive
-            a new verification email.
+            {t("account.verificationInvalid")}
           </p>
           <LocalizedClientLink href="/account">
-            <Button variant="secondary">Go to sign in</Button>
+            <Button variant="secondary">{t("account.goToSignIn")}</Button>
           </LocalizedClientLink>
         </>
       )}

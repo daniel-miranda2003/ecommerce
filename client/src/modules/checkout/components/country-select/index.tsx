@@ -1,3 +1,4 @@
+import { useI18n } from "@lib/i18n/provider"
 import { forwardRef, useImperativeHandle, useMemo, useRef } from "react"
 
 import NativeSelect, {
@@ -10,7 +11,8 @@ const CountrySelect = forwardRef<
   NativeSelectProps & {
     region?: HttpTypes.StoreRegion
   }
->(({ placeholder = "Country", region, defaultValue, ...props }, ref) => {
+>(({ placeholder, region, defaultValue, ...props }, ref) => {
+  const { t } = useI18n()
   const innerRef = useRef<HTMLSelectElement>(null)
 
   useImperativeHandle<HTMLSelectElement | null, HTMLSelectElement | null>(
@@ -32,7 +34,7 @@ const CountrySelect = forwardRef<
   return (
     <NativeSelect
       ref={innerRef}
-      placeholder={placeholder}
+      placeholder={placeholder ?? t("checkout.country")}
       defaultValue={defaultValue}
       {...props}
     >

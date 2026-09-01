@@ -1,6 +1,7 @@
 import { HttpTypes } from "@medusajs/types"
 import { clx } from "@modules/common/components/ui"
 import React from "react"
+import { useI18n } from "@lib/i18n/provider"
 
 type OptionSelectProps = {
   option: HttpTypes.StoreProductOption
@@ -19,11 +20,12 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   "data-testid": dataTestId,
   disabled,
 }) => {
+  const { t } = useI18n()
   const filteredOptions = (option.values ?? []).map((v) => v.value)
 
   return (
     <div className="flex flex-col gap-y-3">
-      <span className="text-sm">Select {title}</span>
+      <span className="text-sm">{t("product.selectTitle", { title })}</span>
       <div
         className="flex flex-wrap justify-between gap-2"
         data-testid={dataTestId}

@@ -4,6 +4,7 @@ import React from "react"
 import Input from "@modules/common/components/input"
 import AccountInfo from "../account-info"
 import { HttpTypes } from "@medusajs/types"
+import { useI18n } from "@lib/i18n/provider"
 // TODO: Re-add toast notifications when Toaster component is implemented
 
 type MyInformationProps = {
@@ -12,6 +13,7 @@ type MyInformationProps = {
 
 const ProfilePassword: React.FC<MyInformationProps> = ({ customer: _customer }) => {
   const [successState, setSuccessState] = React.useState(false)
+  const { t } = useI18n()
 
   // TODO: Add support for password updates
   const updatePassword = async () => {
@@ -30,9 +32,9 @@ const ProfilePassword: React.FC<MyInformationProps> = ({ customer: _customer }) 
       className="w-full"
     >
       <AccountInfo
-        label="Password"
+        label={t("account.password")}
         currentInfo={
-          <span>The password is not shown for security reasons</span>
+          <span>{t("account.passwordHidden")}</span>
         }
         isSuccess={successState}
         isError={false}
@@ -42,21 +44,21 @@ const ProfilePassword: React.FC<MyInformationProps> = ({ customer: _customer }) 
       >
         <div className="grid grid-cols-2 gap-4">
           <Input
-            label="Old password"
+            label={t("account.oldPassword")}
             name="old_password"
             required
             type="password"
             data-testid="old-password-input"
           />
           <Input
-            label="New password"
+            label={t("account.newPassword")}
             type="password"
             name="new_password"
             required
             data-testid="new-password-input"
           />
           <Input
-            label="Confirm password"
+            label={t("account.confirmPassword")}
             type="password"
             name="confirm_password"
             required

@@ -1,7 +1,6 @@
 "use server"
 
-import { sdk } from "@lib/config"
-import { getCacheOptions } from "./cookies"
+import { SUPPORTED_LOCALES } from "@lib/i18n/translations"
 
 export type Locale = {
   code: string
@@ -9,20 +8,8 @@ export type Locale = {
 }
 
 /**
- * Fetches available locales from the backend.
- * Returns null if the endpoint returns 404 (locales not configured).
+ * Returns the languages supported by the storefront (pt/es/en).
  */
-export const listLocales = async (): Promise<Locale[] | null> => {
-  const next = {
-    ...(await getCacheOptions("locales")),
-  }
-
-  return sdk.client
-    .fetch<{ locales: Locale[] }>(`/store/locales`, {
-      method: "GET",
-      next,
-      cache: "force-cache",
-    })
-    .then(({ locales }) => locales)
-    .catch(() => null)
+export const listLocales = async (): Promise<Locale[]> => {
+  return SUPPORTED_LOCALES.map((l) => ({ code: l.code, name: l.name }))
 }

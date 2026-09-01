@@ -1,3 +1,4 @@
+import { useI18n } from "@lib/i18n/provider"
 import { Radio as RadioGroupOption } from "@headlessui/react"
 import { Text, clx } from "@modules/common/components/ui"
 import React, { useContext, type JSX } from "react"
@@ -75,6 +76,7 @@ export const StripePaymentContainer = ({
   setError: (error: string | null) => void
   setPaymentComplete: (complete: boolean) => void
 }) => {
+  const { t } = useI18n()
   const stripeReady = useContext(StripeContext)
 
   return (
@@ -88,7 +90,7 @@ export const StripePaymentContainer = ({
         (stripeReady ? (
           <div className="my-4 transition-all duration-150 ease-in-out">
             <Text className="txt-medium-plus text-ui-fg-base mb-1">
-              Enter your payment details:
+              {t("checkout.payment.enterYourDetails")}
             </Text>
             <PaymentElement
               options={{ layout: "accordion" }}
@@ -103,7 +105,7 @@ export const StripePaymentContainer = ({
               onLoadError={(e) => {
                 setPaymentComplete(false)
                 setError(
-                  e.error?.message ?? "Could not load the payment methods."
+                  e.error?.message ?? t("checkout.payment.couldNotLoad")
                 )
               }}
             />

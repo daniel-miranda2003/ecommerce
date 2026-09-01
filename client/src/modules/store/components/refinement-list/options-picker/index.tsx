@@ -2,11 +2,11 @@
 
 import * as Accordion from "@radix-ui/react-accordion"
 import { useEffect, useState } from "react"
-
 import { ChevronDownMini } from "@medusajs/icons"
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
 import clsx from "clsx"
+import { useI18n } from "@lib/i18n/provider"
 
 type OptionsPickerProps = {
   selectedValueIds: string[]
@@ -17,6 +17,7 @@ const OptionsPicker = ({
   selectedValueIds,
   setOptionValueIds,
 }: OptionsPickerProps) => {
+  const { t } = useI18n()
   const [options, setOptions] = useState<HttpTypes.StoreProductOption[]>([])
   const [openItems, setOpenItems] = useState<string[]>([])
 
@@ -58,7 +59,7 @@ const OptionsPicker = ({
     <div className="flex flex-col gap-y-4">
       <div className="flex items-center justify-between px-1">
         <span className="txt-compact-small-plus text-ui-fg-subtle">
-          Options
+          {t("store.options")}
         </span>
       </div>
       <Accordion.Root
@@ -107,7 +108,7 @@ const OptionsPicker = ({
                 <Accordion.Trigger className="flex w-full items-center justify-between py-3 text-left">
                   <div className="flex items-center gap-2">
                     <span className="txt-compact-small-plus text-ui-fg-base">
-                      {option.title || "Option"}
+                      {option.title || t("store.option")}
                     </span>
                     <span className="txt-compact-small-plus text-ui-fg-muted">
                       ({selectedCount})
