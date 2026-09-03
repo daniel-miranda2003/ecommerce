@@ -40,9 +40,14 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
               <div className="relative flex h-full">
                 <Popover.Button
                   data-testid="nav-menu-button"
-                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ink eyebrow text-ink-muted"
+                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ink text-ink-muted p-1"
+                  aria-label={t("nav.menu")}
                 >
-                  {t("nav.menu")}
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                  </svg>
                 </Popover.Button>
               </div>
 

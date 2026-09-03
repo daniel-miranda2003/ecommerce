@@ -113,12 +113,12 @@ const Payment = ({
   }, [isOpen])
 
   return (
-    <div className="bg-white">
+    <div className="bg-transparent">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row font-display text-[2rem] text-ink gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && !paymentReady,
@@ -132,7 +132,7 @@ const Payment = ({
           <Text>
             <button
               onClick={handleEdit}
-              className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+              className="text-sm uppercase tracking-widest text-ink-muted hover:text-ink transition-colors"
               data-testid="edit-payment-button"
             >
               {t("checkout.edit")}
@@ -173,11 +173,11 @@ const Payment = ({
 
           {paidByGiftcard && (
             <div className="flex flex-col w-1/3">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <Text className="text-base text-ink mb-1">
                 {t("checkout.payment.method")}
               </Text>
               <Text
-                className="txt-medium text-ui-fg-subtle"
+                className="text-sm text-ink-muted"
                 data-testid="payment-method-summary"
               >
                 {t("checkout.payment.giftCard")}
@@ -211,11 +211,11 @@ const Payment = ({
           {cart && paymentReady && activeSession ? (
             <div className="flex items-start gap-x-1 w-full">
               <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                <Text className="text-base text-ink mb-1">
                   {t("checkout.payment.method")}
                 </Text>
                 <Text
-                  className="txt-medium text-ui-fg-subtle"
+                  className="text-sm text-ink-muted"
                   data-testid="payment-method-summary"
                 >
                   {paymentInfoMap[activeSession?.provider_id]?.title ||
@@ -223,11 +223,11 @@ const Payment = ({
                 </Text>
               </div>
               <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                <Text className="text-base text-ink mb-1">
                   {t("checkout.payment.details")}
                 </Text>
                 <div
-                  className="flex gap-2 txt-medium text-ui-fg-subtle items-center"
+                  className="flex gap-2 text-sm text-ink-muted items-center"
                   data-testid="payment-details-summary"
                 >
                   <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
@@ -241,11 +241,11 @@ const Payment = ({
             </div>
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <Text className="text-base text-ink mb-1">
                 {t("checkout.payment.method")}
               </Text>
               <Text
-                className="txt-medium text-ui-fg-subtle"
+                className="text-sm text-ink-muted"
                 data-testid="payment-method-summary"
               >
                 {t("checkout.payment.giftCard")}

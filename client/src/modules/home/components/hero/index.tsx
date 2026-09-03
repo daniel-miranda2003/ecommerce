@@ -1,61 +1,135 @@
-import LocalizedClientLink from "@modules/common/components/localized-client-link";
-import { getT } from "@lib/i18n/server";
+"use client"
 
-const Hero = async () => {
-  const t = await getT();
+import Image from "next/image"
+import { useState, useEffect } from "react"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
+const SLIDES = [
+  {
+    id: 1,
+    title: "conjunto Maitê",
+    image: "/hero-bg.png",
+    link: "/store?category=conjuntos",
+  },
+  {
+    id: 2,
+    title: "vestido Flora",
+    image: "/launch-1.png",
+    link: "/store?category=vestidos",
+  },
+  {
+    id: 3,
+    title: "macacão Terra",
+    image: "/launch-2.png",
+    link: "/store?category=macacoes",
+  }
+]
+
+const HeroCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev === SLIDES.length - 1 ? 0 : prev + 1))
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1))
+  }
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === SLIDES.length - 1 ? 0 : prev + 1))
+  }
 
   return (
-    <section className="relative min-h-[92svh] w-full overflow-hidden border-b border-line bg-paper">
-      {/* Ambient warm light, no flat backgrounds */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 right-[-10%] h-[38rem] w-[38rem] rounded-full opacity-[0.04] blur-[120px] bg-[#D9B98C] animate-drift"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-[-18rem] left-[-8%] h-[42rem] w-[42rem] rounded-full opacity-[0.035] blur-[140px] bg-[#B7C4C2] animate-drift"
-        style={{ animationDelay: "-12s" }}
-      />
+    <section className="relative w-full overflow-hidden h-[80svh]">
+      {/* Import elegant cursive font from Google Fonts */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
+        .font-cursive {
+          font-family: 'Alex Brush', cursive;
+        }
+      `}} />
 
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-8 inset-y-8 hidden small:block border border-line"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px bg-line small:block"
-      />
+      {/* Slides Container */}
+      <div 
+        className="relative h-full w-full flex transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {SLIDES.map((slide, index) => (
+          <div key={slide.id} className="relative flex-none w-full min-w-full h-full flex items-center justify-center overflow-hidden">
+            {/* Background Image */}
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              priority={index === 0}
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+            {/* Gradient Overlay for better contrast */}
+            <div className="absolute inset-0 bg-black/20" />
+            
+            {/* Centered Content */}
+            <div className="relative z-10 flex flex-col items-center text-center px-4 animate-reveal w-full max-w-5xl mx-auto">
+              <h2 className="font-cursive text-[4rem] small:text-[7rem] text-white leading-none tracking-normal drop-shadow-md">
+                {slide.title}
+              </h2>
+              
+              <LocalizedClientLink
+                href={slide.link}
+                className="mt-8 small:mt-12 group flex items-center justify-center px-12 py-4 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/40 transition-all duration-300 active:scale-[0.98]"
+              >
+                <span className="text-white text-sm small:text-base font-semibold tracking-[0.2em] uppercase">
+                  Comprar
+                </span>
+              </LocalizedClientLink>
+            </div>
+          </div>
+        ))}
+      </div>
 
-      <div className="content-container relative z-10 flex min-h-[92svh] flex-col justify-between py-14 small:py-16">
-        <div className="flex items-center justify-between animate-reveal">
-          <p className="eyebrow">{t("home.hero.eyebrow")}</p>
-          <p className="eyebrow hidden small:block">{t("brand.name")} — N.º 01</p>
-        </div>
+      {/* Navigation Arrows */}
+      <button 
+        onClick={handlePrev}
+        className="absolute left-4 small:left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 small:w-12 small:h-12 flex items-center justify-center rounded-full bg-white/90 text-ink shadow-sm hover:scale-105 hover:bg-white transition-all duration-200"
+        aria-label="Anterior"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
 
-        <div className="max-w-5xl animate-reveal" style={{ animationDelay: "120ms" }}>
-          <h1 className="font-display text-[16vw] leading-[0.92] tracking-[-0.03em] text-ink small:text-[7.5rem]">
-            {t("home.hero.title")}
-          </h1>
-          <p className="mt-8 max-w-md text-lg leading-[1.7] text-ink-muted">
-            {t("home.hero.subtitle")}
-          </p>
-        </div>
+      <button 
+        onClick={handleNext}
+        className="absolute right-4 small:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 small:w-12 small:h-12 flex items-center justify-center rounded-full bg-white/90 text-ink shadow-sm hover:scale-105 hover:bg-white transition-all duration-200"
+        aria-label="Siguiente"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
 
-        <div className="flex flex-col gap-6 small:flex-row small:items-end small:justify-between animate-reveal" style={{ animationDelay: "240ms" }}>
-          <LocalizedClientLink
-            href="/store"
-            className="btn-press inline-flex h-11 items-center justify-center rounded-[4px] bg-ink px-7 text-sm font-medium tracking-[0.04em] text-white transition-colors duration-200 hover:bg-[#333333]"
-            data-testid="hero-shop-link"
-          >
-            {t("home.hero.cta")}
-          </LocalizedClientLink>
-          <p className="eyebrow max-w-xs leading-[1.9] small:text-right" data-testid="hero-meta">
-            {t("home.hero.meta")}
-          </p>
-        </div>
+      {/* Pagination Dots */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+        {SLIDES.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            className={`transition-all duration-300 rounded-full ${
+              currentIndex === idx 
+                ? "w-8 h-2 bg-white" 
+                : "w-2 h-2 bg-white/50 hover:bg-white/80"
+            }`}
+            aria-label={`Ir a la diapositiva ${idx + 1}`}
+          />
+        ))}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default HeroCarousel

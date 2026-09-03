@@ -84,10 +84,24 @@ const CartDropdown = ({
       <Popover className="relative h-full">
         <PopoverButton className="h-full">
           <LocalizedClientLink
-            className="eyebrow text-ink-muted hover:text-ink transition-colors duration-200"
+            className="text-ink-muted hover:text-ink transition-colors duration-200 p-1 flex items-center"
             href="/cart"
             data-testid="nav-cart-link"
-          >{t("nav.cartCount", { totalItems })}</LocalizedClientLink>
+            aria-label={t("nav.cartCount", { totalItems })}
+          >
+            <div className="relative flex items-center">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2.5 flex h-[18px] min-w-[18px] px-1 items-center justify-center rounded-full bg-ink text-[9px] font-bold text-white shadow-sm">
+                  {totalItems}
+                </span>
+              )}
+            </div>
+          </LocalizedClientLink>
         </PopoverButton>
         <Transition
           show={cartDropdownOpen}

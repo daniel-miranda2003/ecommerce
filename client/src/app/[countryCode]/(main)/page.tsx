@@ -2,7 +2,11 @@ import { Metadata } from "next"
 
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
-import { listCollections } from "@lib/data/collections"
+
+import ServicesBanner from "@modules/home/components/services-banner"
+import LaunchSection from "@modules/home/components/launch-section"
+import BestSellersSection from "@modules/home/components/best-sellers-section"
+import ReviewsSection from "@modules/home/components/reviews-section"
 import { getRegion } from "@lib/data/regions"
 import { getLocale } from "@lib/data/locale-actions"
 import { isSupportedLocale, translate } from "@lib/i18n/translate"
@@ -28,17 +32,28 @@ export default async function Home(props: {
 
   const region = await getRegion(countryCode)
 
-  const { collections } = await listCollections({
-    fields: "id, handle, title",
-  })
-
-  if (!collections || !region) {
+  if (!region) {
     return null
   }
 
   return (
     <>
+      {/* 1. Hero principal */}
       <Hero />
+
+      {/* 5. Franja de servicios — Frete, Pagamento, Atendimento, Segurança */}
+      <ServicesBanner />
+
+      {/* 6. Sección LANÇAMENTOS con tarjetas animadas y paletas de color */}
+      <LaunchSection />
+
+      {/* Sección MAIS VENDIDOS */}
+      <BestSellersSection />
+
+      {/* Sección DEPOIMENTOS / RESEÑAS */}
+      <ReviewsSection />
+
+      {/* 7. Bloque editorial de marca */}
       <div className="content-container py-16 small:py-28">
         <Reveal>
           <div className="grid gap-12 small:grid-cols-[1.1fr_1fr] small:items-center">
@@ -55,10 +70,6 @@ export default async function Home(props: {
         </Reveal>
         <div className="mt-16 small:mt-24 w-full border-t border-line" />
       </div>
-
-      <ul className="flex flex-col gap-x-6">
-        <FeaturedProducts collections={collections} region={region} />
-      </ul>
     </>
   )
 }

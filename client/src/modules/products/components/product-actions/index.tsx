@@ -12,6 +12,7 @@ import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
+import ColorSizeMatrix from "./color-size-matrix"
 import { useRouter } from "next/navigation"
 
 type ProductActionsProps = {
@@ -138,13 +139,37 @@ export default function ProductActions({
   }
 
   return (
-    <>
-      <div className="flex flex-col gap-y-2" ref={actionsRef}>
+      <div className="flex flex-col gap-y-4" ref={actionsRef}>
         <div>
-          {(product.variants?.length ?? 0) > 1 && (
-            <div className="flex flex-col gap-y-4">
-              {(product.options || []).map((option) => {
-                return (
+          {(product.variants?.length ?? 0) > 1 && (() => {
+            // Check if we have both a color and a size option
+            const opts = product.options ?? []
+            const hasColor = opts.some((o) =>
+              ["cor", "color", "couleur", "cores"].some((k) =>
+                (o.title ?? "").toLowerCase().includes(k)
+              )
+            )
+            const hasSize = opts.some((o) =>
+              ["tamanho", "talla", "size", "tam", "tamaño"].some((k) =>
+                (o.title ?? "").toLowerCase().includes(k)
+              )
+            )
+
+            if (hasColor && hasSize) {
+              return (
+                <ColorSizeMatrix
+                  product={product}
+                  options={options}
+                  setOption={setOptionValue}
+                  disabled={!!disabled || isAdding}
+                />
+              )
+            }
+
+            // Fallback: individual option selectors
+            return (
+              <div className="flex flex-col gap-y-6">
+                {(product.options || []).map((option) => (
                   <div key={option.id}>
                     <OptionSelect
                       option={option}
@@ -155,11 +180,10 @@ export default function ProductActions({
                       disabled={!!disabled || isAdding}
                     />
                   </div>
-                )
-              })}
-              <Divider />
-            </div>
-          )}
+                ))}
+              </div>
+            )
+          })()}
         </div>
 
         <ProductPrice product={product} variant={selectedVariant} />
@@ -174,7 +198,7 @@ export default function ProductActions({
             !isValidVariant
           }
           variant="primary"
-          className="w-full h-10"
+          className="w-full h-12 text-sm tracking-[0.06em] uppercase font-semibold"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
@@ -184,6 +208,21 @@ export default function ProductActions({
             ? t("product.outOfStock")
             : t("product.addToCart")}
         </Button>
+
+        {/* WhatsApp contact button */}
+        <a
+          href="https://wa.me/5511999999999"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full h-12 flex items-center justify-center gap-2.5 border border-[#25D366] text-[#25D366] text-sm font-medium rounded-[4px] hover:bg-[#25D366] hover:text-white transition-all duration-200"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+            <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+          </svg>
+          Tirar dúvidas pelo WhatsApp
+        </a>
+
         <MobileActions
           product={product}
           variant={selectedVariant}
@@ -196,6 +235,5 @@ export default function ProductActions({
           optionsDisabled={!!disabled || isAdding}
         />
       </div>
-    </>
   )
 }
