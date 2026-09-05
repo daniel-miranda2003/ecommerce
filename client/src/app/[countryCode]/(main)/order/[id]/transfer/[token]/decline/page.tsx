@@ -33,7 +33,7 @@ export default async function TransferPage({
               {t("transfer.declineError")}
             </Text>
             {error && (
-              <Text className="text-red-500">{t("transfer.errorMessage", { error })}</Text>
+              <Text className="text-accent-red-fg">{t("transfer.errorMessage", { error })}</Text>
             )}
           </>
         )}

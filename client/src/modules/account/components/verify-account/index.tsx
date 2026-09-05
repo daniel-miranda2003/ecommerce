@@ -44,14 +44,14 @@ const VerifyAccount = () => {
       </h1>
 
       {state === "verifying" && (
-        <p className="text-base-regular text-ui-fg-base">
+        <p className="text-base-regular text-ink-soft">
           {t("account.verifyingEmail")}
         </p>
       )}
 
       {state === "success" && (
         <>
-          <p className="text-base-regular text-ui-fg-base">
+          <p className="text-base-regular text-ink-soft">
             {t("account.emailVerified")}
           </p>
           <LocalizedClientLink href="/account">
@@ -62,7 +62,7 @@ const VerifyAccount = () => {
 
       {state === "error" && (
         <>
-          <p className="text-base-regular text-ui-fg-base">
+          <p className="text-base-regular text-ink-soft">
             {t("account.verificationInvalid")}
           </p>
           <LocalizedClientLink href="/account">

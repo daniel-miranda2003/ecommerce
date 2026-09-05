@@ -14,7 +14,6 @@ export default async function AccountPageLayout({
   return (
     <AccountLayout customer={customer}>
       {customer ? dashboard : login}
-      {/* TODO: Re-add Toaster component when needed */}
     </AccountLayout>
   )
 }

@@ -12,10 +12,8 @@ import {
 
 // TODO: Add Toaster component back when needed for notifications
 
-// Re-export clsx as clx for compatibility
 export { clsx as clx }
 
-// Text Component
 type TextProps = HTMLAttributes<HTMLParagraphElement> & {
   as?: "p" | "span" | "div"
 }
@@ -31,7 +29,6 @@ export const Text = forwardRef<HTMLParagraphElement, TextProps>(
 )
 Text.displayName = "Text"
 
-// Heading Component
 type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
   level?: "h1" | "h2" | "h3"
 }
@@ -57,7 +54,6 @@ export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
 )
 Heading.displayName = "Heading"
 
-// Button Component
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "transparent"
   size?: "small" | "medium" | "large"
@@ -82,9 +78,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={clsx(
-          "inline-flex gap-2 items-center justify-center rounded-[4px] font-medium transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
+          "inline-flex gap-2 items-center justify-center rounded-base font-medium transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
           variant === "primary" &&
-            "bg-ink text-white hover:bg-[#333333] shadow-none",
+            "bg-ink text-white hover:bg-ink-soft shadow-none",
           variant === "secondary" &&
             "bg-transparent text-ink border border-line hover:bg-paper-warm",
           variant === "transparent" &&
@@ -103,7 +99,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = "Button"
 
-// Container Component
 type ContainerProps = HTMLAttributes<HTMLDivElement>
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
@@ -112,7 +107,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
       <div
         ref={ref}
         className={clsx(
-          "bg-white border border-line rounded-lg p-4 shadow-none",
+          "bg-white border border-line rounded p-4 shadow-none",
           className
         )}
         {...props}
@@ -124,7 +119,6 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 )
 Container.displayName = "Container"
 
-// Badge Component
 type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
   color?: "green" | "red" | "blue" | "orange" | "grey" | "purple"
 }
@@ -153,7 +147,6 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
 )
 Badge.displayName = "Badge"
 
-// IconBadge Component
 type IconBadgeProps = HTMLAttributes<HTMLSpanElement>
 
 export const IconBadge = forwardRef<HTMLSpanElement, IconBadgeProps>(
@@ -174,7 +167,6 @@ export const IconBadge = forwardRef<HTMLSpanElement, IconBadgeProps>(
 )
 IconBadge.displayName = "IconBadge"
 
-// IconButton Component
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -183,7 +175,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          "inline-flex items-center justify-center rounded-[4px] p-2 hover:bg-paper-warm transition-colors focus-visible:outline-none focus-visible:ring-2 active:scale-[0.98]",
+          "inline-flex items-center justify-center rounded-base p-2 hover:bg-paper-warm transition-colors focus-visible:outline-none focus-visible:ring-2 active:scale-[0.98]",
           className
         )}
         {...props}
@@ -195,7 +187,6 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 )
 IconButton.displayName = "IconButton"
 
-// Label Component
 type LabelProps = LabelHTMLAttributes<HTMLLabelElement>
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
@@ -213,7 +204,6 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
 )
 Label.displayName = "Label"
 
-// Input Component
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string
 }
@@ -226,7 +216,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           className={clsx(
-            "flex h-10 w-full rounded-[4px] border border-line bg-white px-3 py-2 text-sm text-ink-soft placeholder:text-ink-faint focus:outline-none focus:border-ink disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-10 w-full rounded-base border border-line bg-white px-3 py-2 text-sm text-ink-soft placeholder:text-ink-faint focus:outline-none focus:border-ink disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           {...props}
@@ -237,7 +227,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 )
 Input.displayName = "Input"
 
-// Table Components
 type TableProps = TableHTMLAttributes<HTMLTableElement>
 
 const TableRoot = forwardRef<HTMLTableElement, TableProps>(
@@ -297,7 +286,7 @@ const TableRow = forwardRef<HTMLTableRowElement, TableRowProps>(
       <tr
         ref={ref}
         className={clsx(
-          "border-b transition-colors hover:bg-gray-50",
+          "border-b border-line transition-colors hover:bg-paper-warm",
           className
         )}
         {...props}
@@ -317,7 +306,7 @@ const TableHead = forwardRef<HTMLTableCellElement, TableHeadProps>(
       <th
         ref={ref}
         className={clsx(
-          "h-12 px-4 text-left align-middle font-medium text-gray-500 [&:has([role=checkbox])]:pr-0",
+          "h-12 px-4 text-left align-middle font-medium text-ink-muted [&:has([role=checkbox])]:pr-0",
           className
         )}
         {...props}
@@ -358,7 +347,6 @@ export const Table = Object.assign(TableRoot, {
   Cell: TableCell,
 })
 
-// RadioGroup Components
 type RadioGroupProps = HTMLAttributes<HTMLDivElement>
 
 const RadioGroupRoot = forwardRef<HTMLDivElement, RadioGroupProps>(
@@ -389,7 +377,7 @@ const RadioGroupItem = forwardRef<HTMLInputElement, RadioGroupItemProps>(
           type="radio"
           id={id}
           className={clsx(
-            "h-4 w-4 border-gray-300 text-gray-900 focus:ring-gray-900",
+            "h-4 w-4 rounded border border-line text-ink accent-ink focus:ring-2 focus:ring-ink/10 focus:ring-offset-1",
             className
           )}
           {...props}
@@ -405,7 +393,6 @@ export const RadioGroup = Object.assign(RadioGroupRoot, {
   Item: RadioGroupItem,
 })
 
-// Checkbox Component
 type CheckboxProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
   label?: string
 }
@@ -419,7 +406,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           type="checkbox"
           id={id}
           className={clsx(
-            "h-4 w-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900",
+            "h-4 w-4 rounded border border-line text-ink accent-ink focus:ring-2 focus:ring-ink/10 focus:ring-offset-1",
             className
           )}
           {...props}

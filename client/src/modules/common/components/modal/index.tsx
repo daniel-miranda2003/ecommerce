@@ -34,7 +34,7 @@ const Modal = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-opacity-75 backdrop-blur-md  h-screen" />
+          <div className="fixed inset-0 bg-ink/40 backdrop-blur-md h-screen" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -65,7 +65,7 @@ const Modal = ({
                     "max-w-lg": size === "medium",
                     "max-w-2xl": size === "large",
                     "bg-transparent shadow-none": search,
-                    "bg-white shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-line rounded-lg": !search,
+                    "bg-white shadow-[0_8px_40px_rgba(0,0,0,0.08)] border border-line rounded": !search,
                   }
                 )}
               >
@@ -96,9 +96,9 @@ const Title: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const Description: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Dialog.Description className="flex text-small-regular text-ui-fg-base items-center justify-center pt-2 pb-4">
-      {children}
-    </Dialog.Description>
+          <Dialog.Description className="flex text-sm text-ink-muted items-center justify-center pt-2 pb-4">
+            {children}
+          </Dialog.Description>
   )
 }
 

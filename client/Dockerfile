@@ -1,7 +1,3 @@
-# Next.js 15.2.0 - Client Storefront - Modo Desarrollo
-# Docker local. El código fuente se monta por bind mount (./client:/app)
-# y node_modules se sirve desde un volumen anónimo inicializado con la
-# instalación reproducida en la imagen (pnpm-lock.yaml fijado).
 FROM node:22-alpine
 
 WORKDIR /app

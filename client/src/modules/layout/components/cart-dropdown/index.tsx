@@ -56,7 +56,6 @@ const CartDropdown = ({
     open()
   }
 
-  // Clean up the timer when the component unmounts
   useEffect(() => {
     return () => {
       if (activeTimer) {
@@ -67,12 +66,10 @@ const CartDropdown = ({
 
   const pathname = usePathname()
 
-  // open cart dropdown when modifying the cart items, but only if we're not on the cart page
   useEffect(() => {
     if (itemRef.current !== totalItems && !pathname.includes("/cart")) {
       timedOpen()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalItems, itemRef.current])
 
   return (
@@ -90,7 +87,16 @@ const CartDropdown = ({
             aria-label={t("nav.cartCount", { totalItems })}
           >
             <div className="relative flex items-center">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="26"
+                height="26"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                 <line x1="3" y1="6" x2="21" y2="6"></line>
                 <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -115,11 +121,13 @@ const CartDropdown = ({
         >
           <PopoverPanel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border border-line w-[420px] text-ink-soft shadow-card-hover rounded-lg"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border border-line w-[420px] text-ink-soft shadow-card-hover rounded"
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center border-b border-line">
-              <h3 className="font-display text-[1.2rem] tracking-[-0.01em] text-ink">{t("cart.title")}</h3>
+              <h3 className="font-display text-[1.2rem] tracking-[-0.01em] text-ink">
+                {t("cart.title")}
+              </h3>
             </div>
             {cartState && cartState.items?.length ? (
               <>
@@ -194,9 +202,11 @@ const CartDropdown = ({
                 </div>
                 <div className="p-4 flex flex-col gap-y-4 text-small-regular">
                   <div className="flex items-center justify-between">
-                    <span className="text-ui-fg-base font-semibold">
+                    <span className="text-ink font-semibold">
                       {t("cart.subtotal")}{" "}
-                      <span className="font-normal">({t("cart.subtotalNote")})</span>
+                      <span className="font-normal">
+                        ({t("cart.subtotalNote")})
+                      </span>
                     </span>
                     <span
                       className="text-large-semi"
@@ -230,8 +240,12 @@ const CartDropdown = ({
                   <div>
                     <LocalizedClientLink href="/store">
                       <>
-                        <span className="sr-only">{t("cart.srGoToAllProducts")}</span>
-                        <Button onClick={close}>{t("cart.exploreProducts")}</Button>
+                        <span className="sr-only">
+                          {t("cart.srGoToAllProducts")}
+                        </span>
+                        <Button onClick={close}>
+                          {t("cart.exploreProducts")}
+                        </Button>
                       </>
                     </LocalizedClientLink>
                   </div>

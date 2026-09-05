@@ -43,7 +43,6 @@ export default function ProductActions({
   const [isAdding, setIsAdding] = useState(false)
   const countryCode = useParams().countryCode as string
 
-  // If there is only 1 variant, preselect the options
   useEffect(() => {
     if (product.variants?.length === 1) {
       const variantOptions = optionsAsKeymap(product.variants[0].options)
@@ -62,7 +61,6 @@ export default function ProductActions({
     })
   }, [product.variants, options])
 
-  // update the options when a variant is selected
   const setOptionValue = (optionId: string, value: string) => {
     setOptions((prev) => ({
       ...prev,
@@ -70,7 +68,6 @@ export default function ProductActions({
     }))
   }
 
-  //check if the selected options produce a valid variant
   const isValidVariant = useMemo(() => {
     return product.variants?.some((v) => {
       const variantOptions = optionsAsKeymap(v.options)
@@ -95,19 +92,15 @@ export default function ProductActions({
     router.replace(pathname + "?" + params.toString())
   }, [selectedVariant, isValidVariant])
 
-  // check if the selected variant is in stock
   const inStock = useMemo(() => {
-    // If we don't manage inventory, we can always add to cart
     if (selectedVariant && !selectedVariant.manage_inventory) {
       return true
     }
 
-    // If we allow back orders on the variant, we can add to cart
     if (selectedVariant?.allow_backorder) {
       return true
     }
 
-    // If there is inventory available, we can add to cart
     if (
       selectedVariant?.manage_inventory &&
       (selectedVariant?.inventory_quantity || 0) > 0
@@ -115,7 +108,6 @@ export default function ProductActions({
       return true
     }
 
-    // Otherwise, we can't add to cart
     return false
   }, [selectedVariant])
 
@@ -123,7 +115,6 @@ export default function ProductActions({
 
   const inView = useIntersection(actionsRef, "0px")
 
-  // add the selected variant to the cart
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
 
@@ -139,10 +130,10 @@ export default function ProductActions({
   }
 
   return (
-      <div className="flex flex-col gap-y-4" ref={actionsRef}>
-        <div>
-          {(product.variants?.length ?? 0) > 1 && (() => {
-            // Check if we have both a color and a size option
+    <div className="flex flex-col gap-y-4" ref={actionsRef}>
+      <div>
+        {(product.variants?.length ?? 0) > 1 &&
+          (() => {
             const opts = product.options ?? []
             const hasColor = opts.some((o) =>
               ["cor", "color", "couleur", "cores"].some((k) =>
@@ -166,7 +157,6 @@ export default function ProductActions({
               )
             }
 
-            // Fallback: individual option selectors
             return (
               <div className="flex flex-col gap-y-6">
                 {(product.options || []).map((option) => (
@@ -184,56 +174,64 @@ export default function ProductActions({
               </div>
             )
           })()}
-        </div>
-
-        <ProductPrice product={product} variant={selectedVariant} />
-
-        <Button
-          onClick={handleAddToCart}
-          disabled={
-            !inStock ||
-            !selectedVariant ||
-            !!disabled ||
-            isAdding ||
-            !isValidVariant
-          }
-          variant="primary"
-          className="w-full h-12 text-sm tracking-[0.06em] uppercase font-semibold"
-          isLoading={isAdding}
-          data-testid="add-product-button"
-        >
-          {!selectedVariant
-            ? t("product.selectVariant")
-            : !inStock || !isValidVariant
-            ? t("product.outOfStock")
-            : t("product.addToCart")}
-        </Button>
-
-        {/* WhatsApp contact button */}
-        <a
-          href="https://wa.me/5511999999999"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full h-12 flex items-center justify-center gap-2.5 border border-[#25D366] text-[#25D366] text-sm font-medium rounded-[4px] hover:bg-[#25D366] hover:text-white transition-all duration-200"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
-            <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
-          </svg>
-          Tirar dúvidas pelo WhatsApp
-        </a>
-
-        <MobileActions
-          product={product}
-          variant={selectedVariant}
-          options={options}
-          updateOptions={setOptionValue}
-          inStock={inStock}
-          handleAddToCart={handleAddToCart}
-          isAdding={isAdding}
-          show={!inView}
-          optionsDisabled={!!disabled || isAdding}
-        />
       </div>
+
+      <ProductPrice product={product} variant={selectedVariant} />
+
+      <Button
+        onClick={handleAddToCart}
+        disabled={
+          !inStock ||
+          !selectedVariant ||
+          !!disabled ||
+          isAdding ||
+          !isValidVariant
+        }
+        variant="primary"
+        className="w-full h-12 text-sm tracking-[0.06em] uppercase font-semibold"
+        isLoading={isAdding}
+        data-testid="add-product-button"
+      >
+        {!selectedVariant
+          ? t("product.selectVariant")
+          : !inStock || !isValidVariant
+          ? t("product.outOfStock")
+          : t("product.addToCart")}
+      </Button>
+
+      <a
+        href="https://wa.me/5511999999999"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full h-12 flex items-center justify-center gap-2.5 border border-[#25D366] text-[#25D366] text-sm font-medium rounded-base hover:bg-[#25D366] hover:text-white transition-all duration-200"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+          <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+        </svg>
+        Tirar dúvidas pelo WhatsApp
+      </a>
+
+      <MobileActions
+        product={product}
+        variant={selectedVariant}
+        options={options}
+        updateOptions={setOptionValue}
+        inStock={inStock}
+        handleAddToCart={handleAddToCart}
+        isAdding={isAdding}
+        show={!inView}
+        optionsDisabled={!!disabled || isAdding}
+      />
+    </div>
   )
 }

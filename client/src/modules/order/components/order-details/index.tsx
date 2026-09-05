@@ -26,7 +26,7 @@ const OrderDetails = async ({ order, showStatus }: OrderDetailsProps) => {
           {new Date(order.created_at).toDateString()}
         </span>
       </Text>
-      <Text className="mt-2 text-ui-fg-interactive">
+      <Text className="mt-2 text-accent-red-fg">
         {t("order.number")} <span data-testid="order-id">{order.display_id}</span>
       </Text>
 
@@ -35,14 +35,14 @@ const OrderDetails = async ({ order, showStatus }: OrderDetailsProps) => {
           <>
             <Text>
               {t("order.status")}{" "}
-              <span className="text-ui-fg-subtle " data-testid="order-status">
+              <span className="text-ink-muted " data-testid="order-status">
                 {formatStatus(order.fulfillment_status)}
               </span>
             </Text>
             <Text>
               {t("order.paymentStatus")}{" "}
               <span
-                className="text-ui-fg-subtle "
+                className="text-ink-muted "
                 data-testid="order-payment-status"
               >
                 {formatStatus(order.payment_status)}

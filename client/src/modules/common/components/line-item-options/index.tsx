@@ -20,7 +20,7 @@ const LineItemOptions = ({
     <Text
       data-testid={dataTestid}
       data-value={dataValue}
-      className="inline-block txt-medium text-ui-fg-subtle w-full overflow-hidden text-ellipsis"
+      className="inline-block txt-medium text-ink-muted w-full overflow-hidden text-ellipsis"
     >
       {t("common.variant", { title: variant?.title || "" })}
     </Text>

@@ -27,7 +27,7 @@ export default function ProductPrice({
     <div className="flex flex-col text-ink-soft">
       <span
         className={clx("text-xl-semi", {
-          "text-[#1F6C9F]": selectedPrice.price_type === "sale",
+          "text-accent-blue-fg": selectedPrice.price_type === "sale",
         })}
       >
         {!variant && t("product.from")}
@@ -50,7 +50,7 @@ export default function ProductPrice({
               {selectedPrice.original_price}
             </span>
           </p>
-          <span className="text-[#1F6C9F]">
+          <span className="text-accent-blue-fg">
             {t("product.offPercentage", {
               percentage: selectedPrice.percentage_diff,
             })}

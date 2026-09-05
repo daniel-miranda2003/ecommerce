@@ -17,8 +17,8 @@ export default async function NotFound() {
   const t = await getT()
   return (
     <div className="flex flex-col gap-4 items-center justify-center min-h-[calc(100vh-64px)]">
-      <h1 className="text-2xl-semi text-ui-fg-base">{t("notFound.title")}</h1>
-      <p className="text-small-regular text-ui-fg-base">
+      <h1 className="text-2xl-semi text-ink-soft">{t("notFound.title")}</h1>
+      <p className="text-small-regular text-ink-soft">
         {t("notFound.message")}
       </p>
       <InteractiveLink href="/">{t("notFound.goHome")}</InteractiveLink>

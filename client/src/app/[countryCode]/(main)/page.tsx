@@ -38,22 +38,11 @@ export default async function Home(props: {
 
   return (
     <>
-      {/* 1. Hero principal */}
       <Hero />
-
-      {/* 5. Franja de servicios — Frete, Pagamento, Atendimento, Segurança */}
       <ServicesBanner />
-
-      {/* 6. Sección LANÇAMENTOS con tarjetas animadas y paletas de color */}
-      <LaunchSection />
-
-      {/* Sección MAIS VENDIDOS */}
-      <BestSellersSection />
-
-      {/* Sección DEPOIMENTOS / RESEÑAS */}
+      <LaunchSection region={region} />
+      <BestSellersSection region={region} />
       <ReviewsSection />
-
-      {/* 7. Bloque editorial de marca */}
       <div className="content-container py-16 small:py-28">
         <Reveal>
           <div className="grid gap-12 small:grid-cols-[1.1fr_1fr] small:items-center">

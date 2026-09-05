@@ -50,7 +50,7 @@ const AccountNav = ({
                 <li>
                   <LocalizedClientLink
                     href="/account/profile"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
+                    className="flex items-center justify-between py-4 border-b border-line px-8"
                     data-testid="profile-link"
                   >
                     <>
@@ -65,7 +65,7 @@ const AccountNav = ({
                 <li>
                   <LocalizedClientLink
                     href="/account/addresses"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
+                    className="flex items-center justify-between py-4 border-b border-line px-8"
                     data-testid="addresses-link"
                   >
                     <>
@@ -80,7 +80,7 @@ const AccountNav = ({
                 <li>
                   <LocalizedClientLink
                     href="/account/orders"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
+                    className="flex items-center justify-between py-4 border-b border-line px-8"
                     data-testid="orders-link"
                   >
                     <div className="flex items-center gap-x-2">
@@ -93,7 +93,7 @@ const AccountNav = ({
                 <li>
                   <button
                     type="button"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8 w-full"
+                    className="flex items-center justify-between py-4 border-b border-line px-8 w-full"
                     onClick={handleLogout}
                     data-testid="logout-button"
                   >
@@ -111,7 +111,7 @@ const AccountNav = ({
       </div>
       <div className="hidden small:block" data-testid="account-nav">
         <div>
-          <p className="eyebrow mb-6">MI CUENTA</p>
+          <p className="eyebrow mb-6">{t("account.eyebrow")}</p>
           <div className="text-sm">
             <ul className="flex mb-0 justify-start items-start flex-col gap-y-3">
               <li className="w-full">
@@ -154,7 +154,7 @@ const AccountNav = ({
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="text-xs uppercase tracking-wider text-ink-muted hover:text-rose-600 font-medium flex items-center gap-x-2 transition-colors w-full"
+                  className="text-xs uppercase tracking-wider text-ink-muted hover:text-accent-red-fg font-medium flex items-center gap-x-2 transition-colors w-full"
                   data-testid="logout-button"
                 >
                   <ArrowRightOnRectangle className="w-4 h-4" />

@@ -2,7 +2,7 @@ import { getBaseURL } from "@lib/util/env"
 import { Metadata } from "next"
 import "styles/globals.css"
 
-import { display, sans } from "@lib/fonts"
+import { cursive, display, sans } from "@lib/fonts"
 import { getLocale } from "@lib/data/locale-actions"
 import { I18nProvider } from "@lib/i18n/provider"
 import { isSupportedLocale } from "@lib/i18n/translate"
@@ -18,7 +18,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html
       lang={locale}
       data-mode="light"
-      className={`${sans.variable} ${display.variable}`}
+      className={`${sans.variable} ${display.variable} ${cursive.variable}`}
     >
       <body>
         <I18nProvider locale={locale}>

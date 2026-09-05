@@ -10,7 +10,7 @@ const SignInPrompt = async () => {
         <Heading level="h2" className="txt-xlarge">
           {t("cart.signInPrompt.title")}
         </Heading>
-        <Text className="txt-medium text-ui-fg-subtle mt-2">
+        <Text className="txt-medium text-ink-muted mt-2">
           {t("cart.signInPrompt.subtitle")}
         </Text>
       </div>

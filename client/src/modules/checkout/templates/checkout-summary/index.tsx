@@ -11,7 +11,7 @@ const CheckoutSummary = async ({ cart }: { cart: HttpTypes.StoreCart }) => {
   const t = await getT()
   return (
     <div className="sticky top-24 flex flex-col-reverse small:flex-col gap-y-8 py-8 small:py-0 ">
-      <div className="w-full bg-paper-card border border-line rounded-xl p-6 small:p-8 flex flex-col">
+      <div className="w-full bg-paper-card border border-line rounded p-6 small:p-8 flex flex-col">
         <Divider className="my-6 small:hidden" />
         <Heading
           level="h2"

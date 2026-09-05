@@ -1,4 +1,5 @@
 import Reveal from "@modules/common/components/reveal"
+import { getT } from "@lib/i18n/server"
 
 const REVIEWS = [
   {
@@ -48,24 +49,26 @@ const StarRating = () => (
   </div>
 )
 
-const ReviewsSection = () => {
+const ReviewsSection = async () => {
+  const t = await getT()
+
   return (
     <section className="w-full bg-paper-warm border-t border-line overflow-hidden">
       <div className="content-container py-16 small:py-24">
         <Reveal>
           <div className="flex flex-col items-center text-center mb-12 small:mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#9d8f84] mb-3">
-              DEPOIMENTOS
+            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-ink-muted mb-3">
+              {t("home.reviews.eyebrow")}
             </p>
             <h2 className="font-display text-[2.2rem] small:text-[3rem] leading-[0.95] tracking-[-0.03em] text-ink">
-              O que nossas clientes dizem
+              {t("home.reviews.title")}
             </h2>
           </div>
         </Reveal>
 
         <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar -mx-4 px-4 small:mx-0 small:px-0 small:grid small:grid-cols-4 gap-6 small:gap-8 pb-4">
           {REVIEWS.map((review, index) => (
-            <Reveal key={review.id} delay={index * 100}>
+            <Reveal key={review.id} index={index}>
               <div className="w-[280px] small:w-auto shrink-0 snap-center bg-white p-6 small:p-8 border border-line flex flex-col justify-between h-full">
                 <div>
                   <StarRating />
@@ -76,7 +79,7 @@ const ReviewsSection = () => {
                 
                 <div className="mt-8 pt-6 border-t border-line">
                   <p className="text-sm font-semibold text-ink">{review.name}</p>
-                  <p className="text-[11px] uppercase tracking-[0.08em] text-[#9d8f84] mt-1">
+                  <p className="text-[11px] uppercase tracking-[0.08em] text-ink-muted mt-1">
                     {review.location}
                   </p>
                 </div>

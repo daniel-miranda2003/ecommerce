@@ -58,9 +58,7 @@ const OptionsPicker = ({
   return (
     <div className="flex flex-col gap-y-4">
       <div className="flex items-center justify-between px-1">
-        <span className="txt-compact-small-plus text-ui-fg-subtle">
-          {t("store.options")}
-        </span>
+        <span className="eyebrow">{t("store.options")}</span>
       </div>
       <Accordion.Root
         type="multiple"
@@ -107,23 +105,23 @@ const OptionsPicker = ({
               <Accordion.Header>
                 <Accordion.Trigger className="flex w-full items-center justify-between py-3 text-left">
                   <div className="flex items-center gap-2">
-                    <span className="txt-compact-small-plus text-ui-fg-base">
+                    <span className="text-sm text-ink-soft font-medium">
                       {option.title || t("store.option")}
                     </span>
-                    <span className="txt-compact-small-plus text-ui-fg-muted">
+                    <span className="text-sm text-ink-muted">
                       ({selectedCount})
                     </span>
                   </div>
-                  <span
-                    className={clsx(
-                      "flex h-7 w-7 items-center justify-center text-ui-fg-muted transition-transform duration-150",
-                      {
-                        "rotate-180": isOpen,
-                      }
-                    )}
-                  >
-                    <ChevronDownMini />
-                  </span>
+                    <span
+                      className={clsx(
+                        "flex h-7 w-7 items-center justify-center text-ink-muted transition-transform duration-150",
+                        {
+                          "rotate-180": isOpen,
+                        }
+                      )}
+                    >
+                      <ChevronDownMini />
+                    </span>
                 </Accordion.Trigger>
               </Accordion.Header>
               <Accordion.Content className="pb-4 pt-1">
@@ -136,11 +134,11 @@ const OptionsPicker = ({
                         key={value.id}
                         onClick={() => toggleValue(value.id)}
                         className={clsx(
-                          "border-ui-border-base border text-small-regular h-10 rounded-rounded px-3 flex items-center transition-colors duration-150",
+                          "border border-line text-sm h-10 rounded-base px-3 flex items-center transition-all duration-150",
                           {
-                            "border-ui-border-interactive text-ui-fg-base":
+                            "border-ink text-ink font-medium bg-paper-warm":
                               isSelected,
-                            "text-ui-fg-muted hover:text-ui-fg-base":
+                            "text-ink-muted hover:text-ink hover:border-ink-muted":
                               !isSelected,
                           }
                         )}

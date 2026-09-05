@@ -86,7 +86,6 @@ export default function ShippingPriceNudge({
     return
   }
 
-  // Check if any shipping options have a conditional price based on item_total
   const freeShippingPrice = shippingOptions
     .map((shippingOption) => {
       const calculatedPrice = shippingOption.calculated_price
@@ -95,9 +94,6 @@ export default function ShippingPriceNudge({
         return
       }
 
-      // Get all prices that are:
-      // 1. Currency code is same as the cart's
-      // 2. Have a rule that is set on item_total
       const validCurrencyPrices = shippingOption.prices.filter(
         (price) =>
           price.currency_code === cart.currency_code &&
@@ -116,8 +112,6 @@ export default function ShippingPriceNudge({
     })
     .flat(1)
     .filter(Boolean)
-    // We focus here entirely on free shipping, but this can be edited to handle multiple layers
-    // of reduced shipping prices.
     .find((price) => price?.amount === 0)
 
   if (!freeShippingPrice) {
@@ -144,7 +138,7 @@ function FreeShippingInline({
 }) {
   const { t } = useI18n()
   return (
-    <div className="bg-paper-warm border border-line p-2.5 rounded-lg">
+    <div className="bg-paper-warm border border-line p-2.5 rounded">
       <div className="space-y-1.5">
         <div className="flex justify-between text-xs text-ink-muted">
           <div>
@@ -211,14 +205,14 @@ function FreeShippingPopup({
     >
       <div>
         <Button
-          className="rounded-[4px] bg-white/10 shadow-none outline-none border-none text-[15px] p-2 text-white"
+          className="rounded-base bg-white/10 shadow-none outline-none border-none text-[15px] p-2 text-white"
           onClick={() => setIsClosed(true)}
         >
           <XMark />
         </Button>
       </div>
 
-      <div className="w-[400px] bg-ink text-white p-6 rounded-lg ">
+      <div className="w-[400px] bg-ink text-white p-6 rounded ">
         <div className="pb-4">
           <div className="space-y-3">
             <div className="flex justify-between text-[15px] text-white/60">
@@ -263,14 +257,14 @@ function FreeShippingPopup({
 
         <div className="flex gap-3">
           <LocalizedClientLink
-            className="rounded-[4px] bg-transparent shadow-none outline-none border-[1px] border-white/60 text-[15px] py-2.5 px-4 text-white hover:bg-white/10 transition-colors duration-200"
+            className="rounded-base bg-transparent shadow-none outline-none border-[1px] border-white/60 text-[15px] py-2.5 px-4 text-white hover:bg-white/10 transition-colors duration-200"
             href="/cart"
           >
             {t("shipping.viewCart")}
           </LocalizedClientLink>
 
           <LocalizedClientLink
-            className="flex-grow rounded-[4px] bg-white text-ink shadow-none outline-none border-[1px] border-white text-[15px] py-2.5 px-4 text-center hover:bg-[#EAEAEA] transition-colors duration-200"
+            className="flex-grow rounded-base bg-white text-ink shadow-none outline-none border-[1px] border-white text-[15px] py-2.5 px-4 text-center hover:bg-line transition-colors duration-200"
             href="/store"
           >
             {t("shipping.viewProducts")}

@@ -101,6 +101,13 @@
     line-height: 1.05;
   }
 
+  .font-cursive {
+    font-family: var(--font-cursive);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+  }
+
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 10px;
@@ -171,6 +178,11 @@
     filter: blur(80px);
     opacity: 0.03;
   }
+
+  /* Consistent focus ring for all interactive elements */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ink/10 focus:ring-offset-1;
+  }
 }
 
 @layer components {
@@ -232,5 +244,38 @@
 
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
+  }
+
+  /* Shared form field base — input, select, textarea */
+  .field-base {
+    @apply h-11 w-full rounded-base border border-line bg-white px-4 py-2.5
+      text-sm text-ink-soft placeholder:text-ink-faint
+      transition-colors duration-200
+      focus:outline-none focus:border-ink;
+  }
+
+  .field-base-hover {
+    @apply hover:border-ink-muted;
+  }
+
+  .field-error {
+    @apply border-accent-red-fg/40 focus:border-accent-red-fg;
+  }
+
+  /* Error text */
+  .form-error {
+    @apply pt-2 text-accent-red-fg text-xs font-normal;
+  }
+
+  /* Radio-card / option card base */
+  .option-card {
+    @apply flex items-center justify-between cursor-pointer
+      py-4 px-6 mb-2 border border-line rounded-base
+      transition-all duration-200
+      hover:border-ink-muted;
+  }
+
+  .option-card-selected {
+    @apply border-ink;
   }
 }

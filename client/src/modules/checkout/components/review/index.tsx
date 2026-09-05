@@ -28,7 +28,7 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row font-display text-[2rem] text-ink gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none": !isOpen,
             }
@@ -41,7 +41,7 @@ const Review = ({ cart }: { cart: HttpTypes.StoreCart }) => {
         <>
           <div className="flex items-start gap-x-1 w-full mb-6">
             <div className="w-full">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <Text className="txt-medium-plus text-ink-soft mb-1">
                 {t("checkout.review.terms")}
               </Text>
             </div>

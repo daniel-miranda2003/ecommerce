@@ -28,7 +28,7 @@ const Login = ({ setCurrentView }: Props) => {
 
       {message?.state === "verification_required" && (
         <div
-          className="w-full mb-6 text-center text-xs text-ink-soft bg-[#EDF3EC] border border-[#346538]/20 rounded-[4px] p-4"
+          className="w-full mb-6 text-center text-xs text-ink-soft bg-accent-green-bg border border-accent-green-fg/20 rounded-base p-4"
           data-testid="login-verification-message"
         >
           {t("account.verificationLinkSent", { email: "{{email}}" })
@@ -44,7 +44,7 @@ const Login = ({ setCurrentView }: Props) => {
           label={t("account.email")}
           name="email"
           type="email"
-          title="Enter a valid email address."
+          title={t("checkout.validEmail")}
           autoComplete="email"
           required
           data-testid="email-input"
@@ -65,7 +65,7 @@ const Login = ({ setCurrentView }: Props) => {
 
         <SubmitButton
           data-testid="sign-in-button"
-          className="w-full h-11 bg-ink text-white font-medium text-sm tracking-[0.04em] rounded-[4px] hover:bg-[#333333] transition-colors duration-200 btn-press mt-2"
+          className="w-full h-11 bg-ink text-white font-medium text-sm tracking-[0.04em] rounded-base hover:bg-ink-soft transition-colors duration-200 btn-press mt-2"
         >
           {t("account.signIn")}
         </SubmitButton>

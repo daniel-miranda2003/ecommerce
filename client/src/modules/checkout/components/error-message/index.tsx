@@ -39,7 +39,7 @@ const ErrorMessage = ({ error, 'data-testid': dataTestid }: { error?: string | n
   }
 
   return (
-    <div className="pt-2 text-rose-500 text-xs font-normal" data-testid={dataTestid}>
+    <div className="form-error" data-testid={dataTestid}>
       <span>{displayError}</span>
     </div>
   )

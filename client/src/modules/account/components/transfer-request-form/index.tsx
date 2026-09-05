@@ -57,7 +57,7 @@ export default function TransferRequestForm() {
         </form>
       </div>
       {!state.success && state.error && (
-        <Text className="text-base-regular text-rose-500 text-right">
+        <Text className="text-base-regular text-accent-red-fg text-right">
           {state.error}
         </Text>
       )}
@@ -66,7 +66,7 @@ export default function TransferRequestForm() {
           <div className="flex gap-x-2 items-center">
             <CheckCircleMiniSolid className="w-4 h-4 text-accent-green-fg" />
             <div className="flex flex-col gap-y-1">
-              <Text className="text-medim-pl text-ink">
+              <Text className="text-base-regular text-ink">
                 {t("account.transferRequested", {
                   id: state.order?.id ?? "",
                 })}

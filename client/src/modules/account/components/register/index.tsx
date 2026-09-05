@@ -31,7 +31,7 @@ const Register = ({ setCurrentView }: Props) => {
 
       {message?.state === "verification_required" && (
         <div
-          className="w-full mb-6 text-center text-xs text-ink-soft bg-[#EDF3EC] border border-[#346538]/20 rounded-[4px] p-4"
+          className="w-full mb-6 text-center text-xs text-ink-soft bg-accent-green-bg border border-accent-green-fg/20 rounded-base p-4"
           data-testid="register-verification-message"
         >
           {t("account.verificationLinkSentCheck", { email: "{{email}}" })
@@ -108,7 +108,7 @@ const Register = ({ setCurrentView }: Props) => {
         </p>
 
         <SubmitButton
-          className="w-full h-11 bg-ink text-white font-medium text-sm tracking-[0.04em] rounded-[4px] hover:bg-[#333333] transition-colors duration-200 btn-press mt-2"
+          className="w-full h-11 bg-ink text-white font-medium text-sm tracking-[0.04em] rounded-base hover:bg-ink-soft transition-colors duration-200 btn-press mt-2"
           data-testid="register-button"
         >
           {t("account.join")}

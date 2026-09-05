@@ -83,7 +83,7 @@ const ShippingAddress = ({
     if (cart && !cart.email && customer?.email) {
       setFormAddress(undefined, customer.email)
     }
-  }, [cart]) // Add cart as a dependency
+  }, [cart])
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -101,7 +101,9 @@ const ShippingAddress = ({
       {customer && (addressesInRegion?.length || 0) > 0 && (
         <Container className="mb-6 flex flex-col gap-y-4 p-5">
           <p className="text-small-regular">
-            {t("checkout.savedAddresses", { first_name: customer.first_name ?? "" })}
+            {t("checkout.savedAddresses", {
+              first_name: customer.first_name ?? "",
+            })}
           </p>
           <AddressSelect
             addresses={customer.addresses}

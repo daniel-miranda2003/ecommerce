@@ -104,13 +104,7 @@ module.exports = {
           "Times New Roman",
           "serif",
         ],
-        mono: [
-          "SF Mono",
-          "Cascadia Mono",
-          "Consolas",
-          "Menlo",
-          "monospace",
-        ],
+        mono: ["SF Mono", "Cascadia Mono", "Consolas", "Menlo", "monospace"],
       },
       keyframes: {
         ring: {

@@ -1,20 +1,23 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { getT } from "@lib/i18n/server"
 
-const AnnouncementBar = () => {
+const AnnouncementBar = async () => {
+  const t = await getT()
+
   return (
     <div
       className="w-full bg-ink text-white"
       role="banner"
-      aria-label="Anuncio promocional"
+      aria-label={t("announcement.aria")}
     >
       <div className="content-container flex items-center justify-center gap-2 py-2.5">
         <p className="text-xs tracking-[0.1em] uppercase font-medium text-center">
-          Envío gratis en compras mayores a $50 —{" "}
+          {t("announcement.freeShipping", { amount: "$50" })} —{" "}
           <LocalizedClientLink
             href="/store"
             className="underline underline-offset-2 hover:text-white/70 transition-colors duration-200"
           >
-            Ver colección
+            {t("announcement.viewCollection")}
           </LocalizedClientLink>
         </p>
       </div>
